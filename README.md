@@ -29,6 +29,3 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 
 ---
 
-## Licencia
-
-MIT - Puedes usar y modificar este proyecto libremente.
