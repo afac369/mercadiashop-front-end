@@ -1,6 +1,3 @@
-// MercadIAshop - Tienda Online
-// Archivo: pages/index.tsx
-
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
@@ -37,71 +34,47 @@ export default function Home() {
   const total = carrito.reduce((acc, item) => acc + parseFloat(item.precio.toString()), 0);
 
   return (
-    <main className="p-4">
-      <h1 className="text-3xl font-bold mb-4">MercadIAshop</h1>
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      {/* Header */}
+      <header className="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">🛍️ MercadIAshop</h1>
+        <div className="text-right">
+          <p className="text-sm">Carrito ({carrito.length})</p>
+          <p className="font-bold">${total.toFixed(2)}</p>
+        </div>
+      </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {productos.map((producto) => (
-          <div key={producto.id} className="border rounded p-4 shadow">
-            <img src={producto.imagen} alt={producto.nombre} className="w-full h-48 object-cover" />
-            <h2 className="text-xl font-semibold mt-2">{producto.nombre}</h2>
-            <p className="text-sm text-gray-600">{producto.descripcion}</p>
-            <p className="text-lg font-bold mt-2">${producto.precio}</p>
-            <button
-              className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
-              onClick={() => agregarAlCarrito(producto)}
-            >
-              Agregar al carrito
-            </button>
-          </div>
-        ))}
-      </div>
+      {/* Productos */}
+      <main className="p-6 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-semibold mb-6">Productos disponibles</h2>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {productos.map((producto) => (
+            <div key={producto.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <img src={producto.imagen} alt={producto.nombre} className="w-full h-56 object-cover" />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold">{producto.nombre}</h3>
+                <p className="text-sm text-gray-600">{producto.descripcion}</p>
+                <p className="mt-2 text-lg font-bold">${producto.precio}</p>
+                <button
+                  onClick={() => agregarAlCarrito(producto)}
+                  className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+                >
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white shadow p-4 border-t">
-        <h2 className="text-xl font-bold">Carrito ({carrito.length}): ${total.toFixed(2)}</h2>
-        <button className="mt-2 px-4 py-2 bg-green-600 text-white rounded">
-          Ir al checkout
-        </button>
-      </div>
-    </main>
+      {/* Checkout fijo (solo visible si hay productos) */}
+      {carrito.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex justify-between items-center md:hidden">
+          <span className="font-bold">Total: ${total.toFixed(2)}</span>
+          <button className="bg-green-600 text-white px-4 py-2 rounded">Ir al checkout</button>
+        </div>
+      )}
+    </div>
   );
 }
-
-// Archivo adicional obligatorio:
-
-// pages/_app.tsx
-// -----------------------------
-// import '../styles/globals.css';
-//
-// export default function MyApp({ Component, pageProps }) {
-//   return <Component {...pageProps} />;
-// }
-
-// package.json
-// -----------------------------
-// {
-//   "name": "mercadiashop",
-//   "version": "1.0.0",
-//   "private": true,
-//   "scripts": {
-//     "dev": "next dev",
-//     "build": "next build",
-//     "start": "next start"
-//   },
-//   "dependencies": {
-//     "@supabase/supabase-js": "^2.0.0",
-//     "next": "13.4.19",
-//     "react": "18.2.0",
-//     "react-dom": "18.2.0",
-//     "tailwindcss": "^3.3.0",
-//     "autoprefixer": "^10.4.0",
-//     "postcss": "^8.4.0"
-//   },
-//   "devDependencies": {
-//     "typescript": "^5.0.0",
-//     "@types/react": "^18.0.28"
-//   }
-// }
-
-// Este archivo asegura que los estilos globales de Tailwind se apliquen correctamente y evita errores en el build de Vercel.
 
