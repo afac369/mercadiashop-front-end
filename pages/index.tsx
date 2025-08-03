@@ -68,4 +68,29 @@ export default function Home() {
 //   return <Component {...pageProps} />;
 // }
 
+// package.json
+// -----------------------------
+// {
+//   "name": "mercadiashop",
+//   "version": "1.0.0",
+//   "private": true,
+//   "scripts": {
+//     "dev": "next dev",
+//     "build": "next build",
+//     "start": "next start"
+//   },
+//   "dependencies": {
+//     "@supabase/supabase-js": "^2.0.0",
+//     "next": "13.4.19",
+//     "react": "18.2.0",
+//     "react-dom": "18.2.0",
+//     "tailwindcss": "^3.3.0",
+//     "autoprefixer": "^10.4.0",
+//     "postcss": "^8.4.0"
+//   },
+//   "devDependencies": {
+//     "typescript": "^5.0.0"
+//   }
+// }
+
 // Este archivo asegura que los estilos globales de Tailwind se apliquen correctamente y evita errores en el build de Vercel.
