@@ -4,14 +4,23 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
+type Producto = {
+  id: string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  imagen: string;
+  tipo_producto: string;
+};
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 export default function Home() {
-  const [productos, setProductos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [carrito, setCarrito] = useState<Producto[]>([]);
 
   useEffect(() => {
     async function cargarProductos() {
@@ -21,18 +30,18 @@ export default function Home() {
     cargarProductos();
   }, []);
 
-  const agregarAlCarrito = (producto: any) => {
+  const agregarAlCarrito = (producto: Producto) => {
     setCarrito([...carrito, producto]);
   };
 
-  const total = carrito.reduce((acc, item) => acc + parseFloat(item.precio), 0);
+  const total = carrito.reduce((acc, item) => acc + parseFloat(item.precio.toString()), 0);
 
   return (
     <main className="p-4">
       <h1 className="text-3xl font-bold mb-4">MercadIAshop</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {productos.map((producto: any) => (
+        {productos.map((producto) => (
           <div key={producto.id} className="border rounded p-4 shadow">
             <img src={producto.imagen} alt={producto.nombre} className="w-full h-48 object-cover" />
             <h2 className="text-xl font-semibold mt-2">{producto.nombre}</h2>
@@ -89,8 +98,10 @@ export default function Home() {
 //     "postcss": "^8.4.0"
 //   },
 //   "devDependencies": {
-//     "typescript": "^5.0.0"
+//     "typescript": "^5.0.0",
+//     "@types/react": "^18.0.28"
 //   }
 // }
 
 // Este archivo asegura que los estilos globales de Tailwind se apliquen correctamente y evita errores en el build de Vercel.
+
