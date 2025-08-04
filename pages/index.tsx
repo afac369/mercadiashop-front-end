@@ -37,18 +37,16 @@ export default function Home() {
 
   return (
     <div
-      className="relative min-h-screen font-sans text-gray-800"
+      className="relative min-h-screen font-sans text-gray-700"
       style={{
-        backgroundImage: "url('/bg-mercadia.jpg')", // Asegúrate que esté en /public/
+        backgroundImage: "url('/bg-mercadia.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Overlay blanco translúcido */}
       <div className="absolute inset-0 bg-white/90 z-0"></div>
 
-      {/* Contenido principal */}
       <div className="relative z-10">
         <Head>
           <title>MercadIAshop | Tienda Online</title>
@@ -76,10 +74,10 @@ export default function Home() {
         <section className="py-16 border-b">
           <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-5xl font-extrabold mb-6 text-gray-800 leading-tight">
+              <h2 className="text-5xl font-extrabold mb-6 text-indigo-800 leading-tight">
                 Descubre lo mejor en tecnología
               </h2>
-              <p className="text-lg text-gray-700 mb-6">
+              <p className="text-lg mb-6">
                 Calidad, estilo y atención personalizada 24/7. Compra inteligente, rápida y sin límites.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -106,7 +104,7 @@ export default function Home() {
 
         {/* Productos */}
         <main className="max-w-7xl mx-auto px-6 py-16">
-          <h3 className="text-3xl font-bold mb-10 text-center text-gray-800">Nuestros productos</h3>
+          <h3 className="text-3xl font-bold mb-10 text-center text-indigo-800">Nuestros productos</h3>
           <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {productos.map((producto) => (
               <div
@@ -119,8 +117,8 @@ export default function Home() {
                   className="w-full h-60 object-cover"
                 />
                 <div className="p-5 flex flex-col flex-grow">
-                  <h4 className="text-lg font-bold mb-1 text-gray-800">{producto.nombre}</h4>
-                  <p className="text-gray-600 text-sm mb-2 line-clamp-2">{producto.descripcion}</p>
+                  <h4 className="text-lg font-bold mb-1 text-indigo-800">{producto.nombre}</h4>
+                  <p className="text-sm mb-2 line-clamp-2">{producto.descripcion}</p>
                   <p className="text-indigo-700 font-bold text-lg mt-auto mb-3">${producto.precio}</p>
                   <button
                     onClick={() => agregarAlCarrito(producto)}
@@ -137,8 +135,8 @@ export default function Home() {
         {/* Sobre Nosotros */}
         <section className="bg-white/70 py-16 border-t">
           <div className="max-w-5xl mx-auto px-6 text-center">
-            <h3 className="text-3xl font-bold mb-4 text-gray-800">¿Quiénes somos?</h3>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            <h3 className="text-3xl font-bold mb-4 text-indigo-800">¿Quiénes somos?</h3>
+            <p className="max-w-2xl mx-auto mb-8">
               En MercadIAshop somos un equipo apasionado por la tecnología y la experiencia del usuario.
               Nos especializamos en ofrecer productos de calidad con un enfoque en servicio, innovación y confianza.
             </p>
@@ -149,7 +147,7 @@ export default function Home() {
         <section className="bg-indigo-50 py-16 border-t">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h3 className="text-3xl font-bold mb-4 text-indigo-800">Recibe nuestras ofertas</h3>
-            <p className="text-gray-600 mb-6">
+            <p className="mb-6">
               Sé el primero en enterarte de promociones exclusivas y lanzamientos especiales.
             </p>
             <form className="flex flex-col md:flex-row gap-4 justify-center">
