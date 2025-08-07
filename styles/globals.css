@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fondo general con imagen */
 body {
-  background-image: url('/bg.jpg');
-  background-size: cover;
-  background-position: center;
+  @apply text-white;
+  background: linear-gradient(120deg, #fb923c 0%, #f97316 100%);
   background-attachment: fixed;
+  background-size: cover;
   background-repeat: no-repeat;
-  color: #fff;
+  background-position: center;
 }

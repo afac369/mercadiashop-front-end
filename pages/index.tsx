@@ -33,26 +33,28 @@ export default function Home() {
           </header>
 
           {/* Hero */}
-          <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-4">Descubre lo mejor en tecnología</h2>
-              <p className="text-lg mb-6">
-                Calidad, estilo y atención personalizada 24/7. Compra inteligente, rápida y sin límites.
-              </p>
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded font-semibold transition">
-                Ver productos
-              </button>
-            </div>
-            <div className="hidden md:block">
+          <section className="max-w-5xl mx-auto px-4 py-12 text-center md:text-left grid md:grid-cols-2 gap-8 items-center">
+           <div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Descubre lo mejor en tecnología</h2>
+            <p className="text-lg mb-6">
+            Calidad, estilo y atención personalizada 24/7. Compra inteligente, rápida y sin límites.
+            </p>
+            <button className="bg-white text-orange-500 font-semibold px-6 py-2 rounded hover:bg-orange-100 transition">
+            Ver productos
+            </button>
+           </div>
+             <div className="flex justify-center">
               <Image
-                src="/hero-img.png"
-                alt="Hero"
-                width={600}
-                height={400}
-                className="rounded"
-              />
-            </div>
+               src="/hero-img.png"
+               alt="Hero"
+               width={500}
+               height={350}
+               priority
+               className="rounded shadow-lg"
+             />
+           </div>
           </section>
+
 
           {/* Beneficios */}
           <section className="py-12 px-6">
