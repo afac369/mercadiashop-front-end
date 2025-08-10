@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const category = String(req.query.category || '').trim()
     const p = Math.max(parseInt(String(req.query.page || '1'), 10) || 1, 1)
     const per = Math.min(Math.max(parseInt(String(req.query.perPage || '9'), 10) || 9, 1), 50)
-    let query = supabaseAdmin.from<Product>('productos').select('*', { count: 'exact' }).order('created_at', { ascending: false })
+    let query = supabaseAdmin.from('productos').select('*', { count: 'exact' }).order('created_at', { ascending: false })
     if (q) query = query.ilike('name', `%${q}%`)
     if (category) query = query.eq('category', category)
     const from = (p - 1) * per, to = from + per - 1
