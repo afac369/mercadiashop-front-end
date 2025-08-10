@@ -6,7 +6,7 @@ import { supabaseAdmin } from '../../../lib/supabaseAdmin'
 
 export const config = { api: { bodyParser: false } }
 
-// Tipado mínimo local (evita @types/formidable)
+// Tipado mínimo para el archivo subido
 type UploadFile = {
   filepath: string
   originalFilename?: string | null
@@ -21,12 +21,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const formidable = (await import('formidable')).default
 
   const form = formidable({ multiples: false, maxFileSize: 5 * 1024 * 1024 })
-  const { files } = await new Promise<{ files: Record<string, unknown> }>((resolve, reject) => {
-    form.parse(req, (err, _fields, files) => (err ? reject(err) : resolve({ files })))
+
+  const { files } = await new Promise<{ files: { file?: UploadFile | UploadFile[] } }>((resolve, reject) => {
+    form.parse(
+      req,
+      (err: unknown, _fields: Record<string, unknown>, files: { file?: UploadFile | UploadFile[] }) => {
+        if (err) return reject(err as Error)
+        resolve({ files })
+      }
+    )
   })
 
-  const f = files.file as UploadFile | UploadFile[] | undefined
-  if (!f || Array.isArray(f)) return res.status(400).json({ ok: false, message: 'Archivo faltante. Usa campo "file".' })
+  const f = files.file
+  if (!f || Array.isArray(f)) {
+    return res.status(400).json({ ok: false, message: 'Archivo faltante. Usa campo "file".' })
+  }
 
   const buf = await fs.readFile(f.filepath)
   const ext = String(f.originalFilename || 'image.jpg').split('.').pop()?.toLowerCase() || 'jpg'
