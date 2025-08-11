@@ -1,9 +1,8 @@
-// components/ProductCard.tsx
 import Image from "next/image";
 import { useCart } from "../context/CartContext";
 import { formatCLP } from "../utils/currency";
 
-type Props = { id: string; name: string; price: number; image?: string; description?: string };
+type Props = { id: string; name: string; price: number; image?: string; description?: string; };
 
 export default function ProductCard({ id, name, price, image, description }: Props) {
   const { add } = useCart();
@@ -22,13 +21,16 @@ export default function ProductCard({ id, name, price, image, description }: Pro
         ) : (
           <div className="h-full w-full grid place-items-center small-muted">Imagen</div>
         )}
-        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5 group-hover:ring-emerald-400/40" />
       </div>
-      <h3 className="mt-3 font-semibold">{name}</h3>
-      {description && <p className="text-sm small-muted">{description}</p>}
+      <h3 className="mt-3 font-semibold line-clamp-2">{name}</h3>
+      {description && <p className="text-sm small-muted line-clamp-2">{description}</p>}
       <div className="mt-3 flex items-center justify-between">
         <span className="text-lg font-extrabold">{formatCLP(price)}</span>
-        <button className="btn-primary" onClick={() => add({ id, name, price, image })}>
+        <button
+          className="btn-primary"
+          onClick={() => add({ id, name, price, image })}
+        >
           Agregar
         </button>
       </div>
