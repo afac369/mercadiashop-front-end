@@ -1,13 +1,10 @@
-
 import Head from "next/head";
 import Link from "next/link";
-import { ReactNode } from "react";
 import { useCart } from "../context/CartContext";
 import { formatCLP } from "../utils/currency";
+import MegaMenu from "./MegaMenu";
 
-type Props = { children: ReactNode };
-
-export default function Layout({ children }: Props) {
+export default function LayoutPro({ children }: { children: React.ReactNode }) {
   const { totalQty, totalPrice } = useCart();
   return (
     <>
@@ -19,11 +16,7 @@ export default function Layout({ children }: Props) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
       </Head>
-
       <div className="relative min-h-screen overflow-x-hidden">
-        <div className="pointer-events-none absolute -top-40 -left-40 h-[32rem] w-[32rem] rounded-full bg-cyan-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -top-20 right-0 h-[28rem] w-[28rem] rounded-full bg-violet-500/20 blur-3xl" />
-
         <header className="sticky top-0 z-40">
           <div className="mx-auto max-w-7xl px-4 py-3">
             <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
@@ -32,7 +25,7 @@ export default function Layout({ children }: Props) {
               </Link>
               <nav className="hidden md:flex items-center gap-6 text-sm">
                 <a href="/#productos">Productos</a>
-                <a href="/#categorias">Categorías</a>
+                <MegaMenu />
                 <a href="/#contacto">Contacto</a>
               </nav>
               <Link href="/carrito" className="chip">
@@ -43,9 +36,7 @@ export default function Layout({ children }: Props) {
             </div>
           </div>
         </header>
-
         <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
-
         <footer className="mt-16 border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 py-10 grid md:grid-cols-3 gap-6 small-muted">
             <div>

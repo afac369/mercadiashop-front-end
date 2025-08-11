@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import LayoutPro from "../components/LayoutPro";
+import LayoutPro from "../components/Layout";
 import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import BannerPromo from "../components/BannerPromo";
