@@ -1,0 +1,47 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Brand foundation ---- */
+:root{
+  --bg:#0b1220;
+  --fg:#e6f0ff;
+  --muted:rgba(230,240,255,0.7);
+  --primary:#22d3ee;       /* cyan-400 */
+  --secondary:#a78bfa;     /* violet-400 */
+  --accent:#22c55e;        /* emerald-500 */
+}
+
+html,body,#__next{height:100%}
+body{
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.15), transparent),
+              radial-gradient(900px 500px at 100% 0%, rgba(167,139,250,.12), transparent),
+              radial-gradient(800px 600px at 50% 120%, rgba(34,197,94,.08), transparent),
+              var(--bg);
+  color: var(--fg);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Inter, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+/* Subtle grid */
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ---- Utilities ---- */
+@layer utilities{
+  .glass{ @apply bg-white/6 backdrop-blur-md border border-white/10; }
+  .btn{ @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold transition-transform duration-150; }
+  .btn-primary{ @apply btn text-black bg-emerald-400 hover:bg-emerald-300 active:scale-[.98] shadow-lg shadow-emerald-400/20; }
+  .btn-ghost{ @apply btn border border-white/15 hover:bg-white/10; }
+  .chip{ @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs border border-white/15 bg-white/5; }
+  .card{ @apply rounded-2xl glass p-4; }
+  .card-hover{ @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30; }
+  .heading-gradient{ @apply bg-gradient-to-r from-cyan-300 via-violet-300 to-emerald-300 bg-clip-text text-transparent; }
+}
+
+a{ @apply hover:opacity-80; }
+h1,h2,h3{ @apply tracking-tight; }
+.small-muted{ color: var(--muted); }
