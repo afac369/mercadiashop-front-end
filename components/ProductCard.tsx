@@ -1,23 +1,19 @@
 import Image from "next/image";
 import { useCart } from "../context/CartContext";
+import { useToast } from "./ToastProvider";
 import { formatCLP } from "../utils/currency";
 
-type Props = { id: string; name: string; price: number; image?: string; description?: string; };
+type Props = { id: string; name: string; price: number; image?: string; description?: string };
 
 export default function ProductCard({ id, name, price, image, description }: Props) {
   const { add } = useCart();
+  const { toast } = useToast();
+
   return (
     <article className="card card-hover overflow-hidden">
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-white/5">
         {image ? (
-          <Image
-            src={image}
-            alt={name}
-            fill
-            sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-            className="object-cover"
-            priority={false}
-          />
+          <Image src={image} alt={name} fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover" />
         ) : (
           <div className="h-full w-full grid place-items-center small-muted">Imagen</div>
         )}
@@ -29,7 +25,7 @@ export default function ProductCard({ id, name, price, image, description }: Pro
         <span className="text-lg font-extrabold">{formatCLP(price)}</span>
         <button
           className="btn-primary"
-          onClick={() => add({ id, name, price, image })}
+          onClick={() => { add({ id, name, price, image }); toast("Agregado al carrito"); }}
         >
           Agregar
         </button>

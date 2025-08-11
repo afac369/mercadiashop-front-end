@@ -1,6 +1,5 @@
-// pages/index.tsx
 import LayoutPro from "../components/LayoutPro";
-import Hero from "../components/Hero";
+import HeroCarousel from "../components/HeroCarousel";
 import Categories from "../components/Categories";
 import BannerPromo from "../components/BannerPromo";
 import ProductsGrid from "../components/ProductsGrid";
@@ -12,7 +11,7 @@ type Props = { products: Product[] };
 export default function Home({ products }: Props) {
   return (
     <LayoutPro>
-      <Hero />
+      <HeroCarousel />
       <BannerPromo />
       <Categories />
       <ProductsGrid products={products} />

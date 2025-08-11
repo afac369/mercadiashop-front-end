@@ -44,3 +44,10 @@ body{
 a{ @apply hover:opacity-80; }
 h1,h2,h3{ @apply tracking-tight; }
 .small-muted{ color: var(--muted); }
+
+[data-theme="light"]{
+  --bg:#f7f8fc;
+  --fg:#0b1220;
+  --muted:rgba(11,18,32,.65);
+}
+[data-theme="light"] .glass{ background-color: rgba(255,255,255,.7); border-color: rgba(17,24,39,.08); }
