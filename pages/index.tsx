@@ -28,3 +28,5 @@ export async function getServerSideProps() {
   if (error) { console.error("Supabase error:", error.message); }
   return { props: { products: data ?? [] } };
 }
+// pages/index.tsx
+export { default, getServerSideProps } from "./home-pro";
