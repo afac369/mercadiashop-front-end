@@ -26,5 +26,6 @@ export async function getServerSideProps() {
     .select("*")
     .eq("is_active", true)
     .order("created_at", { ascending: false });
-  return { props: { products: data ?? [] } };
+
+  return { props: { products: (data as Product[]) ?? [] } };
 }
