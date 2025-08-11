@@ -1,4 +1,3 @@
-
 import { Cpu, Headphones, Home, Gamepad2, Sprout, Dumbbell } from "lucide-react";
 
 type Category = { id: string; name: string; icon: any; };

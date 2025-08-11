@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useCart } from "../context/CartContext";
 import { formatCLP } from "../utils/currency";
 import MegaMenu from "./MegaMenu";
+import ThemeToggle from "./ThemeToggle";
 
 export default function LayoutPro({ children }: { children: React.ReactNode }) {
   const { totalQty, totalPrice } = useCart();
@@ -19,7 +20,7 @@ export default function LayoutPro({ children }: { children: React.ReactNode }) {
       <div className="relative min-h-screen overflow-x-hidden">
         <header className="sticky top-0 z-40">
           <div className="mx-auto max-w-7xl px-4 py-3">
-            <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
+            <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between gap-3">
               <Link href="/" className="text-lg md:text-xl font-extrabold tracking-tight">
                 Mercad<span className="heading-gradient">IA</span>shop
               </Link>
@@ -28,11 +29,14 @@ export default function LayoutPro({ children }: { children: React.ReactNode }) {
                 <MegaMenu />
                 <a href="/#contacto">Contacto</a>
               </nav>
-              <Link href="/carrito" className="chip">
-                <span>Carrito</span>
-                <span className="rounded-full bg-emerald-400 text-black px-2 py-0.5 text-[10px] font-bold">{totalQty}</span>
-                <span className="opacity-80">{formatCLP(totalPrice)}</span>
-              </Link>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <Link href="/carrito" className="chip">
+                  <span>Carrito</span>
+                  <span className="rounded-full bg-emerald-400 text-black px-2 py-0.5 text-[10px] font-bold">{totalQty}</span>
+                  <span className="opacity-80">{formatCLP(totalPrice)}</span>
+                </Link>
+              </div>
             </div>
           </div>
         </header>

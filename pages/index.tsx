@@ -1,30 +1,30 @@
-
-import Layout from "../components/Layout";
-import Hero from "../components/Hero";
+import LayoutPro from "../components/LayoutPro";
+import HeroCarousel from "../components/HeroCarousel";
 import Categories from "../components/Categories";
-import ProductCard from "../components/ProductCard";
+import BannerPromo from "../components/BannerPromo";
+import ProductsGrid from "../components/ProductsGrid";
 import { supabase } from "../lib/supabaseClient";
 import { Product } from "../lib/types";
 
-type Props = { products: Product[] }
+type Props = { products: Product[] };
 
 export default function Home({ products }: Props) {
   return (
-    <Layout>
-      <Hero />
+    <LayoutPro>
+      <HeroCarousel />
+      <BannerPromo />
       <Categories />
-      <section id="productos" className="py-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.length === 0 && <p className="text-white/80">Aún no hay productos publicados.</p>}
-        {products.map((p) => (
-          <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.image_url ?? undefined} description={p.description ?? undefined} />
-        ))}
-      </section>
-    </Layout>
+      <ProductsGrid products={products} />
+    </LayoutPro>
   );
 }
 
 export async function getServerSideProps() {
-  const { data, error } = await supabase.from("productos").select("*").eq("is_active", true).order("created_at", { ascending: false });
-  if (error) { console.error("Supabase error:", error.message); }
-  return { props: { products: data ?? [] } };
+  const { data } = await supabase
+    .from("productos")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+
+  return { props: { products: (data as Product[]) ?? [] } };
 }
