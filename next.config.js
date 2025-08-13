@@ -4,17 +4,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // Tailwind + styled-jsx necesitan inline styles en Next
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      // Fuentes
       "font-src 'self' data: https://fonts.gstatic.com",
-      // Imágenes locales + remotas (Supabase, etc.)
-      "img-src 'self' data: blob: https:",
-      // Scripts de Next en prod no requieren 'unsafe-eval'
+      // permite imágenes locales, data/blobs y Supabase
+      "img-src 'self' data: blob: https://*.supabase.co",
       "script-src 'self'",
-      // Llamadas a Supabase y métricas de Vercel
       "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com",
-      // Endurecimientos extra
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'self'"
@@ -26,8 +21,20 @@ const securityHeaders = [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ];
 
-module.exports = {
+const nextConfig = {
+  images: {
+    // Habilita Next/Image para Supabase Storage
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },
 };
+
+module.exports = nextConfig;
