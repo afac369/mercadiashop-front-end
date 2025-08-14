@@ -6,10 +6,14 @@ const securityHeaders = [
       "default-src 'self'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
-      // permite imágenes locales, data/blobs y Supabase
-      "img-src 'self' data: blob: https://*.supabase.co",
-      "script-src 'self'",
-      "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com",
+      // imágenes locales, data/blobs y remotas (incl. Supabase)
+      "img-src 'self' data: blob: https:",
+      // permite el script del Messenger de Dialogflow
+      "script-src 'self' https://www.gstatic.com",
+      // permite el iframe del Messenger
+      "frame-src 'self' https://www.gstatic.com",
+      // fetch/XHR necesarios (Supabase + Dialogflow/Google)
+      "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.googleapis.com https://dialogflow.clients6.google.com",
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'self'"
@@ -23,13 +27,8 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
-    // Habilita Next/Image para Supabase Storage
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.supabase.co',
-        pathname: '/storage/v1/object/public/**',
-      },
+      { protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' },
     ],
   },
   async headers() {
