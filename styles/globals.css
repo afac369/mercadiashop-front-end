@@ -3,3 +3,5 @@
 
 /* …(tu tema y utilidades que ya te dejé)… */
 @import "tailwindcss";
+
+df-messenger { z-index: 2147483000 !important; }
