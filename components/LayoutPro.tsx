@@ -78,4 +78,15 @@ export default function LayoutPro({ children }: { children: React.ReactNode }) {
       <CartDrawer open={openCart} onClose={() => setOpenCart(false)} />
     </>
   );
+  import DialogflowWidget from "./DialogflowWidget";
+
+export default function LayoutPro({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen">
+      {/* header ... */}
+      <main className="container mx-auto px-4">{children}</main>
+      {/* footer ... */}
+      <DialogflowWidget />
+    </div>
+  );
 }
