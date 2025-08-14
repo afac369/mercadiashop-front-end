@@ -1,4 +1,5 @@
-// next.config.js
+/** @type {import('next').NextConfig} */
+
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
@@ -6,13 +7,11 @@ const securityHeaders = [
       "default-src 'self'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
-      // imágenes locales, data/blobs y remotas (incl. Supabase)
-      "img-src 'self' data: blob: https:",
-      // permite el script del Messenger de Dialogflow
+      "img-src 'self' data: blob: https://*.supabase.co",
+      // Para el widget de Dialogflow (carga desde gstatic)
       "script-src 'self' https://www.gstatic.com",
-      // permite el iframe del Messenger
       "frame-src 'self' https://www.gstatic.com",
-      // fetch/XHR necesarios (Supabase + Dialogflow/Google)
+      // Conexiones de app (Supabase, Vercel vitals, APIs de Google/Dialogflow)
       "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.googleapis.com https://dialogflow.clients6.google.com",
       "base-uri 'self'",
       "form-action 'self'",
@@ -26,18 +25,24 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' },
+      {
+        protocol: 'https',
+        hostname: '**.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
   async headers() {
-    return [{ source: '/(.*)', headers: securityHeaders }];
+    return [
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ];
   },
 };
 
 module.exports = nextConfig;
-
-"script-src 'self' https://www.gstatic.com",
-"frame-src 'self' https://www.gstatic.com",
-"connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.googleapis.com https://dialogflow.clients6.google.com",
