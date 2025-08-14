@@ -2,7 +2,7 @@
 import Script from "next/script";
 
 export default function DialogflowWidget() {
-  const id = process.env.NEXT_PUBLIC_DIALOGFLOW_AGENT_ID; // pon la ID aquí
+  const id = process.env.NEXT_PUBLIC_DIALOGFLOW_AGENT_ID; // pega aquí la ID (o usa env)
   if (!id) return null;
 
   return (
