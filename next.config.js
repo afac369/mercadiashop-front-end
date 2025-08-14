@@ -8,10 +8,10 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://*.supabase.co",
-      // Para el widget de Dialogflow (carga desde gstatic)
+      // Dialogflow web messenger (gstatic)
       "script-src 'self' https://www.gstatic.com",
       "frame-src 'self' https://www.gstatic.com",
-      // Conexiones de app (Supabase, Vercel vitals, APIs de Google/Dialogflow)
+      // Conexiones salientes
       "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.googleapis.com https://dialogflow.clients6.google.com",
       "base-uri 'self'",
       "form-action 'self'",
