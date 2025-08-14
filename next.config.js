@@ -37,3 +37,7 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+"script-src 'self' https://www.gstatic.com",
+"frame-src 'self' https://www.gstatic.com",
+"connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.googleapis.com https://dialogflow.clients6.google.com",
