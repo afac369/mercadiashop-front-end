@@ -1,28 +1,26 @@
-import Link from "next/link";
+// components/Hero.tsx
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl glass bg-grid px-6 py-16 md:px-16 md:py-24">
-      <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-      <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold heading-gradient">
-          Tu nueva tienda favorita: MercadIAshop
-        </h1>
-        <p className="mt-4 text-white/80">
-          Tecnología, accesorios y más. Envíos a todo Chile y soporte 24/7.
-        </p>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link href="#productos" className="btn-primary">Ver productos</Link>
-          <a href="#categorias" className="btn-ghost">Explorar categorías</a>
-        </div>
-        <div className="mt-8 flex items-center justify-center gap-6 text-xs small-muted">
-          <span className="chip">Envíos rápidos</span>
-          <span className="chip">Pagos seguros</span>
-          <span className="chip">Garantía 30 días</span>
-        </div>
+    <section className="relative h-[420px] rounded-2xl overflow-hidden">
+      {/* Fondo */}
+      <Image
+        src="/bg-mercadiashop.jpg"   // archivo en /public
+        alt=""
+        fill
+        priority
+        className="object-cover"
+      />
+
+      {/* Overlay opcional */}
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-transparent" />
+
+      {/* Contenido */}
+      <div className="relative z-10 p-10">
+        <h1 className="text-5xl font-extrabold">Audio premium</h1>
+        <p className="mt-2 opacity-80">Hasta -25% en headphones</p>
       </div>
-      <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
     </section>
   );
 }
