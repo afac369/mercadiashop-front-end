@@ -1,16 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-<<<<<<< HEAD
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-=======
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
->>>>>>> feat/ui-pro-extras
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -22,17 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "allowJs": true
+    "baseUrl": ".",
+    "paths": { "@/*": ["*"] },
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-<<<<<<< HEAD
-    "types/**/*.d.ts"   // ⬅️ esto, con los dos asteriscos y sin coma al final
-=======
     "types/**/*.d.ts"
->>>>>>> feat/ui-pro-extras
   ],
   "exclude": ["node_modules"]
 }
