@@ -1,32 +1,27 @@
-import dynamic from "next/dynamic";
-import LayoutPro from "../components/Layout";
+// pages/home-pro.tsx
 import Hero from "../components/Hero";
-import Categories from "../components/Categories";
-import BannerPromo from "../components/BannerPromo";
-import SkeletonGrid from "../components/SkeletonGrid";
-import { supabase } from "../lib/supabaseClient";
-import type { GetServerSideProps } from "next";
+import LayoutPro from "../components/LayoutPro";
 
-const ProductsGrid = dynamic(() => import("../components/ProductsGrid"), {
-  loading: () => <SkeletonGrid count={9} />,
-  ssr: true,
-});
-
-type Product = {
-  id: string; name: string; price: number; image_url?: string | null; description?: string | null;
-}
-export default function HomePro({ products }: { products: Product[] }) {
+export default function HomePro() {
   return (
     <LayoutPro>
       <Hero />
-      <BannerPromo />
-      <Categories />
-      <ProductsGrid products={products} />
+
+      {/* Sección de promos (opcional) */}
+      <section className="mt-10 rounded-2xl p-6 bg-gradient-to-r from-emerald-100/60 to-sky-100/60">
+        <div className="max-w-3xl">
+          <h2 className="text-xl md:text-2xl font-bold">
+            Hasta -30% en accesorios tech
+          </h2>
+          <p className="small-muted">Termina en 6d 23h 59m 59s</p>
+        </div>
+      </section>
+
+      {/* Ancla para el botón del hero */}
+      <section id="productos" className="mt-12">
+        {/* Aquí puedes renderizar tu grid/listado de productos */}
+        {/* Ejemplo: <ProductsGrid /> */}
+      </section>
     </LayoutPro>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await supabase.from("productos").select("*").eq("is_active", true).order("created_at", { ascending: false });
-  return { props: { products: data ?? [] } };
-};
