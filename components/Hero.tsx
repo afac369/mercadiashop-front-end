@@ -1,24 +1,26 @@
-// components/Hero.tsx (ejemplo)
-import Image from "next/image";
-
+// components/Hero.tsx  (o BannerPromo.tsx)
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl min-h-[380px]">
-      <Image
-        src="/bg-mercadiashop.jpg"
-        alt=""
-        fill                // ocupa todo el contenedor
-        priority
-        className="object-cover"
-      />
-      {/* Overlay opcional */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0b1220]/60 to-transparent" />
-      
-      {/* Contenido encima del fondo */}
-      <div className="relative z-10 p-10">
-        <h1 className="text-4xl font-black">Audio premium</h1>
-        <p className="opacity-80 mt-2">Hasta -25% en headphones</p>
+    <div
+      className="relative min-h-[420px] rounded-3xl overflow-hidden bg-center bg-cover"
+      style={{ backgroundImage: "url('/bg-mercadiashop.jpg')" }}
+    >
+      {/* velo para mejorar contraste del texto */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/85 to-white/60" />
+
+      <div className="relative z-10 p-10 md:p-14">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tight">
+          Tecnología que inspira
+        </h1>
+        <p className="mt-3 text-sm opacity-80">
+          Ofertas exclusivas esta semana
+        </p>
+        {/* ...tus botones/enlaces */}
       </div>
-    </section>
+    </div>
   );
 }
+<div className="relative min-h-[420px] rounded-3xl overflow-hidden hero-bg">
+  <div className="absolute inset-0 bg-gradient-to-r from-white/85 to-white/60" />
+  <div className="relative z-10 p-10 md:p-14">...</div>
+</div>

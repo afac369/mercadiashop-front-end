@@ -5,3 +5,9 @@
 @import "tailwindcss";
 
 df-messenger { z-index: 2147483000 !important; }
+/* styles/globals.css */
+.hero-bg {
+  background-image: url('/bg-mercadiashop.jpg');
+  background-size: cover;
+  background-position: center;
+}
