@@ -142,3 +142,6 @@ vite.config.ts.timestamp-*
 .env.* 
 .vercel
 .env.local
+
+# Next reserved
+/public/_next
