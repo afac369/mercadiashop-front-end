@@ -1,5 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
 
 /* …(tu tema y utilidades que ya te dejé)… */
+@import "tailwindcss";
+
+df-messenger { z-index: 2147483000 !important; }
+/* styles/globals.css */
+.hero-bg {
+  background-image: url('/bg-mercadiashop.jpg');
+  background-size: cover;
+  background-position: center;
+}
