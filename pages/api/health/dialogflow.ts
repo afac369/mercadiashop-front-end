@@ -1,8 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+// pages/api/health/dialogflow.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default function handler(_req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({
-    NEXT_PUBLIC_DIALOGFLOW_AGENT_ID: process.env.NEXT_PUBLIC_DIALOGFLOW_AGENT_ID ?? null,
-    vercelEnv: process.env.VERCEL_ENV ?? "local",
-  });
+export default function health(req: NextApiRequest, res: NextApiResponse) {
+  return res.status(200).json({ ok: true, time: new Date().toISOString() });
 }

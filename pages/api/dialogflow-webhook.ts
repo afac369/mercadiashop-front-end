@@ -1,3 +1,4 @@
+// pages/api/dialogflow-webhook.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -6,17 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  // Payload de Dialogflow
-  const body = req.body;
-
-  // Ejemplo simple: eco del texto recibido
-  const text = body?.queryResult?.queryText || 'Hola';
-  return res.status(200).json({
-    fulfillmentText: `Recibí: ${text}`,
-  });
+  const text = req.body?.queryResult?.queryText || 'Hola';
+  return res.status(200).json({ fulfillmentText: `Recibí: ${text}` });
 }
 
-// (Opcional) ajustar límite de body
-export const config = {
-  api: { bodyParser: { sizeLimit: '1mb' } },
-};
+export const config = { api: { bodyParser: { sizeLimit: '1mb' } } };
