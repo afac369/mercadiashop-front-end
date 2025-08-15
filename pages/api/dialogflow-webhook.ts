@@ -1,14 +1,11 @@
-// pages/api/dialogflow-webhook.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  const pass = req.headers['x-admin-pass'];
+  if (pass !== process.env.ADMIN_PASS) {
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const text = req.body?.queryResult?.queryText || 'Hola';
-  return res.status(200).json({ fulfillmentText: `Recibí: ${text}` });
+  // ...tu lógica del webhook
+  return res.status(200).json({ fulfillmentText: 'Hola desde el webhook' });
 }
-
-export const config = { api: { bodyParser: { sizeLimit: '1mb' } } };
