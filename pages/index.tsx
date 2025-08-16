@@ -3,7 +3,7 @@ import HeroCarousel from "../components/HeroCarousel";
 import Categories from "../components/Categories";
 import BannerPromo from "../components/BannerPromo";
 import SearchFilters from "../components/SearchFilters";
-import ProductsGrid from "../components/ProductsGrid";
+import ProductGrid from "../components/ProductGrid";
 import { supabase } from "../lib/supabaseClient";
 import { Product } from "../lib/types";
 import type { GetServerSideProps } from "next";
@@ -17,7 +17,7 @@ export default function Home({ products }: Props) {
       <BannerPromo />
       <Categories />
       <SearchFilters />
-      <ProductsGrid products={products} />
+      <ProductGrid products={products} />
     </LayoutPro>
   );
 }
