@@ -1,23 +1,42 @@
 // components/ProductGrid.tsx
+import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "../lib/types";
+import { formatCLP } from "../utils/currency";
 
 type Props = {
   products: Product[];
 };
 
 export default function ProductGrid({ products }: Props) {
-  if (!products?.length) {
-    return <p className="small-muted">No hay productos disponibles.</p>;
-  }
-
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map((_, i) => (
-        // usa el índice para la key si tu tipo Product no garantiza un id
-        <div key={i} className="rounded-xl border border-white/10 p-6">
-          {/* Aquí puedes renderizar tu tarjeta real (ProductCard) */}
-          Producto {i + 1}
-        </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {products.map((p) => (
+        <Link
+          key={p.id}
+          href={`/producto/${p.id}`}
+          className="rounded-xl border border-white/10 hover:border-white/20 transition p-3"
+        >
+          <div className="relative aspect-square overflow-hidden rounded-lg bg-black/5">
+            {p.image_url ? (
+              <Image
+                src={p.image_url}
+                alt={p.name}
+                fill
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-sm opacity-60">
+                Sin imagen
+              </div>
+            )}
+          </div>
+          <div className="mt-2 text-sm font-medium truncate">{p.name}</div>
+          <div className="text-xs opacity-80">
+            {typeof formatCLP === "function" ? formatCLP(p.price) : `$${p.price}`}
+          </div>
+        </Link>
       ))}
     </div>
   );
