@@ -1,14 +1,13 @@
-// components/ProductGrid.tsx
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../lib/types";
 import { formatCLP } from "../utils/currency";
 
 type Props = {
-  products: Product[];
+  products?: Product[];        // <- opcional
 };
 
-export default function ProductGrid({ products }: Props) {
+export default function ProductGrid({ products = [] }: Props) {  // <- valor por defecto
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {products.map((p) => (
