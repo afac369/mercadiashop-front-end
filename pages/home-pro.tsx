@@ -12,7 +12,7 @@ type Props = { products: Product[] };
 const HomePro: NextPage<Props> = ({ products }) => (
   <LayoutPro>
     <Head>
-      <title>MercadIAshop — Tecnología y más</title>
+      <title>MercadIAshop — Compra en el futuro, compra hoy ...</title>
     </Head>
 
     <Hero />
