@@ -1,27 +1,37 @@
-// pages/home-pro.tsx
-import Hero from "../components/Hero";
+import type { NextPage } from "next";
+import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
+import Hero from "../components/Hero";
+import Categories from "../components/Categories";
+import ProductGrid from "../components/ProductGrid";
 
-export default function HomePro() {
-  return (
-    <LayoutPro>
+const HomePro: NextPage = () => (
+  <LayoutPro>
+    <Head>
+      <title>MercadIAshop — Compra en el futuro, compra hoy ...</title>
+      <meta
+        name="description"
+        content="Tu nueva tienda favorita: envíos rápidos, pagos seguros y soporte 24/7."
+      />
+    </Head>
+
+    <section id="hero">
       <Hero />
+    </section>
 
-      {/* Sección de promos (opcional) */}
-      <section className="mt-10 rounded-2xl p-6 bg-gradient-to-r from-emerald-100/60 to-sky-100/60">
-        <div className="max-w-3xl">
-          <h2 className="text-xl md:text-2xl font-bold">
-            Hasta -30% en accesorios tech
-          </h2>
-          <p className="small-muted">Termina en 6d 23h 59m 59s</p>
-        </div>
-      </section>
+    <section id="ofertas" className="mx-auto mt-8 max-w-7xl px-4">
+      {/* aquí tu bloque de “Ofertas / banner” si quieres */}
+    </section>
 
-      {/* Ancla para el botón del hero */}
-      <section id="productos" className="mt-12">
-        {/* Aquí puedes renderizar tu grid/listado de productos */}
-        {/* Ejemplo: <ProductsGrid /> */}
-      </section>
-    </LayoutPro>
-  );
-}
+    <section id="categorias" className="mx-auto max-w-7xl px-4 py-8">
+      <h2 className="mb-4 text-2xl font-bold">Categorías</h2>
+      <Categories />
+    </section>
+
+    <section id="productos" className="mx-auto max-w-7xl px-4 py-8">
+      <ProductGrid />
+    </section>
+  </LayoutPro>
+);
+
+export default HomePro;

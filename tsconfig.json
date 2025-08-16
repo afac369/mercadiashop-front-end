@@ -1,3 +1,4 @@
+// tsconfig.json (fragmento)
 {
   "compilerOptions": {
     "target": "es5",
@@ -15,11 +16,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "types/**/*.d.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
