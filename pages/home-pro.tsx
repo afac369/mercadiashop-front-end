@@ -5,7 +5,8 @@ import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import ProductGrid from "../components/ProductGrid";
 
-const HomePro = () => (
+const HomePro = () => {
+  return (
   <LayoutPro>
     <Head>
       <title>MercadIAshop — Compra en el futuro, compra hoy ...</title>
@@ -32,6 +33,7 @@ const HomePro = () => (
       <ProductGrid />
     </section>
   </LayoutPro>
-);
+  );
+};
 
-export default HomePro() 
+export default HomePro;
