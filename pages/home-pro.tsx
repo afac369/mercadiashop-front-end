@@ -5,7 +5,7 @@ import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import ProductGrid from "../components/ProductGrid";
 
-const HomePro: NextPage = () => (
+const HomePro = () => (
   <LayoutPro>
     <Head>
       <title>MercadIAshop — Compra en el futuro, compra hoy ...</title>
@@ -34,4 +34,4 @@ const HomePro: NextPage = () => (
   </LayoutPro>
 );
 
-export default HomePro;
+export default HomePro() 
