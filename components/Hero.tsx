@@ -1,19 +1,27 @@
-import Image from "next/image";
+// components/Hero.tsx
+'use client';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[480px] rounded-2xl overflow-hidden">
-      <Image
-        src="/bg-mercadiashop.jpg?v=2"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/10" />
+    <section
+      className="relative overflow-hidden rounded-2xl min-h-[420px] md:min-h-[520px] bg-center bg-cover"
+      // cache-busting con ?v=2 para evitar caches viejas de Vercel/CDN
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(10,15,25,.55), rgba(10,15,25,.55)), url('/bg-mercadiashop.jpg?v=2')"
+      }}
+    >
       <div className="relative z-10 px-6 py-10 md:px-12 text-white">
-        {/* contenido */}
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+          Tecnología que inspira
+        </h1>
+        <p className="mt-3 text-white/85">Ofertas exclusivas esta semana</p>
+        <a
+          href="#productos"
+          className="mt-6 inline-block rounded-xl px-5 py-2 font-semibold bg-white text-black"
+        >
+          Ver productos
+        </a>
       </div>
     </section>
   );
