@@ -1,63 +1,46 @@
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import { Cpu, Headphones, Home, Gamepad2, Sprout, Dumbbell } from "lucide-react";
+// components/MegaMenu.tsx
+'use client';
 
-const CATEGORIES = [
-  { id: "tech", name: "Tecnología", icon: Cpu },
-  { id: "audio", name: "Audio", icon: Headphones },
-  { id: "hogar", name: "Hogar", icon: Home },
-  { id: "gaming", name: "Gaming", icon: Gamepad2 },
-  { id: "deco", name: "Deco", icon: Sprout },
-  { id: "fitness", name: "Fitness", icon: Dumbbell },
-];
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 export default function MegaMenu() {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onClick = (e: MouseEvent) => {
+    function onDocClick(e: MouseEvent) {
       if (!ref.current) return;
       if (!ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    }
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
   }, []);
 
   return (
-    <div className="relative" ref={ref}>
-      <button
-        className="hover:opacity-80"
-        onClick={() => setOpen((v) => !v)}
-        onMouseEnter={() => setOpen(true)}
-      >
+    <div ref={ref} className="relative">
+      <button type="button" onClick={() => setOpen(v => !v)} className="chip" aria-expanded={open} aria-haspopup="menu">
         Categorías
       </button>
-
       {open && (
-        <div
-          onMouseLeave={() => setOpen(false)}
-          className="absolute left-1/2 z-50 mt-3 w-[680px] -translate-x-1/2 rounded-2xl glass p-6 shadow-2xl"
-        >
-          <div className="grid grid-cols-3 gap-4">
-            {CATEGORIES.map((c) => {
-              const Icon = c.icon;
-              return (
-                <Link
-                  key={c.id}
-                  href={"/#productos"}
-                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 hover:border-emerald-400/40"
-                >
-                  <span className="grid h-10 w-10 place-items-center rounded-lg bg-white/5 border border-white/10">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <div className="font-medium">{c.name}</div>
-                    <div className="text-xs small-muted">Ver productos</div>
-                  </div>
-                </Link>
-              );
-            })}
+        <div role="menu" className="absolute left-0 mt-2 w-[640px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg p-4 shadow-xl">
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <div className="font-semibold mb-2">Computación</div>
+              <ul className="space-y-1">
+                <li><Link href="/categoria/notebooks">Notebooks</Link></li>
+                <li><Link href="/categoria/accesorios">Accesorios</Link></li>
+                <li><Link href="/categoria/almacenamiento">Almacenamiento</Link></li>
+              </ul>
+            </div>
+            <div>
+              <div className="font-semibold mb-2">Gaming</div>
+              <ul className="space-y-1">
+                <li><Link href="/categoria/teclados">Teclados</Link></li>
+                <li><Link href="/categoria/mouse">Mouse</Link></li>
+                <li><Link href="/categoria/audio">Audio</Link></li>
+              </ul>
+            </div>
           </div>
         </div>
       )}

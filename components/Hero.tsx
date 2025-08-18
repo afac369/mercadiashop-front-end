@@ -4,7 +4,6 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="relative rounded-2xl min-h-[360px] overflow-hidden">
-      {/* Fondo con Next/Image (sin z-index negativo) */}
       <Image
         src="/bg-mercadiashop.jpg"
         alt="Fondo MercadIAshop"
@@ -12,11 +11,7 @@ export default function Hero() {
         priority
         className="object-cover"
       />
-
-      {/* Overlay por encima del fondo, debajo del contenido */}
       <div className="absolute inset-0 bg-white/50" />
-
-      {/* Contenido sobre el overlay */}
       <div className="relative z-10 px-6 py-10 md:px-10">
         <h1 className="text-5xl md:text-6xl font-extrabold">
           Tecnología que inspira
