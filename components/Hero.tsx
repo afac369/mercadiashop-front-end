@@ -5,7 +5,6 @@ export default function Hero() {
   return (
     <section
       className="relative overflow-hidden rounded-2xl min-h-[420px] md:min-h-[520px] bg-center bg-cover"
-      // cache-busting con ?v=2 para evitar caches viejas de Vercel/CDN
       style={{
         backgroundImage:
           "linear-gradient(rgba(10,15,25,.55), rgba(10,15,25,.55)), url('/bg-mercadiashop.jpg?v=2')"
