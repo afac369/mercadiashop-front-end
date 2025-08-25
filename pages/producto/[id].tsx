@@ -5,6 +5,9 @@ import LayoutPro from '../../../components/LayoutPro';
 import { supabase } from '../../../lib/supabaseClient';
 import { Product, Supplier } from '../../../lib/types';
 import { formatCLP } from '../../../utils/currency';
+import { useCart } from '../../../context/CartContext';
+import { useToast } from '../../../components/ToastProvider';
+import { useState } from 'react';
 
 type ProductWithSupplier = Product & {
   suppliers: Pick<Supplier, 'name'> | null;
@@ -16,6 +19,14 @@ interface Props {
 
 const ProductPage: NextPage<Props> = ({ product }) => {
   const pageTitle = `${product.name} | MercadIAshop`;
+  const { add } = useCart();
+  const { toast } = useToast();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    add({ ...product, quantity });
+    toast(`Agregado al carrito (${quantity} unidad${quantity > 1 ? 'es' : ''})`);
+  };
 
   return (
     <LayoutPro>
@@ -49,8 +60,20 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               </div>
             )}
 
-            <div className="mt-8">
-              <button className="btn-primary w-full md:w-auto">Añadir al carrito</button>
+            <div className="mt-8 flex items-center gap-4">
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
+                className="w-20 rounded-lg bg-white/10 px-3 py-2 text-center"
+              />
+              <button
+                onClick={handleAddToCart}
+                className="btn-primary flex-grow py-3 text-lg font-semibold"
+              >
+                Añadir al carrito
+              </button>
             </div>
           </div>
         </div>
