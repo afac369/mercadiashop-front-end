@@ -6,7 +6,7 @@ import { supabase } from '../../lib/supabaseClient';
 import { Product, Supplier } from '../../lib/types';
 import { formatCLP } from '../../utils/currency';
 import { useCart } from '../../context/CartContext';
-import { useToast } from '../../../components/ToastProvider';
+import { useToast } from '../../components/ToastProvider';
 import { useState } from 'react';
 
 type ProductWithSupplier = Product & {
