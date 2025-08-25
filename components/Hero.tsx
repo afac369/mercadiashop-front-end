@@ -14,7 +14,7 @@ export default function Hero() {
       />
 
       {/* Overlay translúcido encima de la imagen */}
-      <div className="absolute inset-0 bg-black/50 z-10" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
 
       {/* Contenido por encima del overlay */}
       <div className="relative z-20 px-6 py-10 md:px-10">
