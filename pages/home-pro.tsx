@@ -1,11 +1,12 @@
+import Hero from "../components/Hero";
 import type { NextPage } from "next";
 import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
-import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import ProductGrid from "../components/ProductGrid";
 
-const HomePro: NextPage = () => (
+const HomePro = () => {
+  return (
   <LayoutPro>
     <Head>
       <title>MercadIAshop — Compra en el futuro, compra hoy ...</title>
@@ -32,6 +33,7 @@ const HomePro: NextPage = () => (
       <ProductGrid />
     </section>
   </LayoutPro>
-);
+  );
+};
 
 export default HomePro;

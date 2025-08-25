@@ -14,3 +14,4 @@ module.exports = {
   },
   plugins: [],
 };
+safelist: ["bg-[url('/bg-mercadiashop.jpg')]"];

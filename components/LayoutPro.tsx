@@ -1,3 +1,5 @@
+// components/LayoutPro.tsx
+import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
@@ -6,7 +8,6 @@ import MegaMenu from "./MegaMenu";
 import ThemeToggle from "./ThemeToggle";
 import FreeShippingBar from "./FreeShippingBar";
 import CartDrawer from "./CartDrawer";
-import DialogflowWidget from "./DialogflowWidget";
 
 type Props = { children: React.ReactNode };
 
@@ -14,24 +15,42 @@ export default function LayoutPro({ children }: Props) {
   const { totalQty, totalPrice } = useCart();
   const [openCart, setOpenCart] = useState(false);
 
+  const title = "MercadIAshop — Tecnología y más";
+  const description =
+    "Tu nueva tienda favorita: envíos rápidos, pagos seguros y soporte 24/7.";
+
   return (
     <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="theme-color" content="#0b1220" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MercadIAshop" />
+        {/* Favicon (añadí ?v=2 para romper caché) */}
+        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+      </Head>
+
       <FreeShippingBar />
 
       <div className="relative min-h-screen overflow-x-hidden">
         <header className="sticky top-0 z-40">
           <div className="mx-auto max-w-7xl px-4 py-3">
             <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between gap-3">
-              <Link href="/" className="text-lg md:text-xl font-extrabold tracking-tight">
+              <Link
+                href="/"
+                className="text-lg md:text-xl font-extrabold tracking-tight"
+              >
                 Mercad<span className="heading-gradient">IA</span>shop
               </Link>
-
               <nav className="hidden md:flex items-center gap-6 text-sm">
                 <a href="/#productos">Productos</a>
                 <MegaMenu />
                 <a href="/#contacto">Contacto</a>
               </nav>
-
               <div className="flex items-center gap-2">
                 <ThemeToggle />
                 <button onClick={() => setOpenCart(true)} className="chip">
@@ -57,8 +76,12 @@ export default function LayoutPro({ children }: Props) {
             <div>
               <div className="font-semibold">Ayuda</div>
               <ul className="mt-2 space-y-1">
-                <li><a href="#contacto">Soporte</a></li>
-                <li><a href="#">Políticas</a></li>
+                <li>
+                  <a href="#contacto">Soporte</a>
+                </li>
+                <li>
+                  <a href="#">Políticas</a>
+                </li>
               </ul>
             </div>
             <div className="md:text-right small-muted">
@@ -69,7 +92,6 @@ export default function LayoutPro({ children }: Props) {
       </div>
 
       <CartDrawer open={openCart} onClose={() => setOpenCart(false)} />
-      <DialogflowWidget />
     </>
   );
 }

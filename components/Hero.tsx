@@ -3,18 +3,30 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/10">
+    <section className="relative rounded-2xl min-h-[360px] overflow-hidden">
+      {/* Fondo */}
       <Image
-        src="/bg-mercadiashop.jpg"
-        alt="Fondo MercadIAshop"
+        src="/bg-mercadiashop.jpg?v=3" // ?v=3 fuerza refresco de caché
+        alt="MercadIAshop"
         fill
         priority
-        className="object-cover opacity-30"
+        className="object-cover z-0"
       />
-      <div className="relative z-10 p-10 md:p-16">
-        <h1 className="text-5xl font-black tracking-tight">Tecnología que inspira</h1>
-        <p className="mt-2 opacity-80">Ofertas exclusivas esta semana</p>
+
+      {/* Overlay translúcido encima de la imagen */}
+      <div className="absolute inset-0 bg-black/50 z-10" />
+
+      {/* Contenido por encima del overlay */}
+      <div className="relative z-20 px-6 py-10 md:px-10">
+        <h1 className="text-5xl md:text-6xl font-extrabold">Tecnología que inspira</h1>
+        <p className="mt-3 opacity-80">Ofertas exclusivas esta semana</p>
+        <a
+          href="#productos"
+          className="mt-6 inline-block rounded-xl px-5 py-2 font-semibold bg-black text-white"
+        >
+          Ver productos
+        </a>
       </div>
-    </div>
+    </section>
   );
 }

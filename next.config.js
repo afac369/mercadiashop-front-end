@@ -46,3 +46,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+"img-src 'self' data: blob: https://*.supabase.co"
