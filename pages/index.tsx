@@ -1,5 +1,6 @@
 import LayoutPro from "../components/LayoutPro";
 import Hero from "../components/Hero";
+import HeroCarousel from "../components/HeroCarousel";
 import Categories from "../components/Categories";
 import BannerPromo from "../components/BannerPromo";
 import SearchFilters from "../components/SearchFilters";
@@ -14,6 +15,7 @@ export default function Home({ products }: Props) {
   return (
     <LayoutPro>
       <Hero />
+      <HeroCarousel />
       <BannerPromo />
       <Categories />
       <SearchFilters />
