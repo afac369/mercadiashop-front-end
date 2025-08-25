@@ -8,6 +8,7 @@ import MegaMenu from "./MegaMenu";
 import ThemeToggle from "./ThemeToggle";
 import FreeShippingBar from "./FreeShippingBar";
 import CartDrawer from "./CartDrawer";
+import DialogflowWidget from "./DialogflowWidget";
 
 type Props = { children: React.ReactNode };
 
@@ -92,6 +93,7 @@ export default function LayoutPro({ children }: Props) {
       </div>
 
       <CartDrawer open={openCart} onClose={() => setOpenCart(false)} />
+      <DialogflowWidget />
     </>
   );
 }

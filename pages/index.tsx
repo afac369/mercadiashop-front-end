@@ -1,5 +1,7 @@
+import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
 import Hero from "../components/Hero";
+import HeroCarousel from "../components/HeroCarousel";
 import Categories from "../components/Categories";
 import BannerPromo from "../components/BannerPromo";
 import SearchFilters from "../components/SearchFilters";
@@ -13,7 +15,15 @@ type Props = { products: Product[] };
 export default function Home({ products }: Props) {
   return (
     <LayoutPro>
+      <Head>
+        <title>MercadIAshop: Compra Tecnología y Electrónicos de Vanguardia Online</title>
+        <meta
+          name="description"
+          content="Descubre las mejores ofertas en smartphones, laptops, audio y accesorios en MercadIAshop. Tecnología de punta con envío rápido y seguro a todo el país."
+        />
+      </Head>
       <Hero />
+      <HeroCarousel />
       <BannerPromo />
       <Categories />
       <SearchFilters />

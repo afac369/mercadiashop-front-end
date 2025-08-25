@@ -1,0 +1,7 @@
+# Le indica a los buscadores qué páginas pueden rastrear.
+User-agent: *
+Disallow: /admin
+Disallow: /api/
+
+# Ubicación del mapa del sitio (lo crearemos después)
+Sitemap: https://mercadiashop-6vkpj5jb3-mercadiashops-projects.vercel.app/sitemap.xml
