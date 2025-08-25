@@ -4,6 +4,7 @@ import type { Product, Supplier } from '../../lib/types'
 
 type FormState = Partial<Product>
 const PER_PAGE = 9
+const EMPTY_FORM = { name: '', description: '', price: 0, image_url: '', category: '', stock: 0, is_active: true, supplier_id: null }
 
 export default function AdminHome() {
   // State para Productos
@@ -11,7 +12,7 @@ export default function AdminHome() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const [form, setForm] = useState<FormState>({ name: '', description: '', price: 0, image_url: '', category: '', stock: 0, is_active: true })
+  const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
@@ -23,7 +24,7 @@ export default function AdminHome() {
   const [supplierForm, setSupplierForm] = useState({ name: '', contact_email: '', website: '' })
   const [supplierError, setSupplierError] = useState<string | null>(null)
 
-  // --- Lógica de Productos ---
+  // --- Lógica de Datos ---
   const fetchData = async (opts?: { page?: number }) => {
     const pg = opts?.page ?? page
     setLoading(true)
@@ -33,7 +34,6 @@ export default function AdminHome() {
     const j = await res.json(); setItems(j.data || []); setTotal(j.total || 0); setLoading(false)
   }
 
-  // --- Lógica de Proveedores ---
   const fetchSuppliers = async () => {
     setLoadingSuppliers(true)
     const res = await fetch('/api/admin/suppliers')
@@ -43,16 +43,25 @@ export default function AdminHome() {
 
   useEffect(() => { 
     fetchData()
-    fetchSuppliers()
   }, [q, category, page])
+
+  useEffect(() => {
+    fetchSuppliers()
+  }, [])
 
   const totalPages = Math.max(Math.ceil(total / PER_PAGE), 1)
 
+  // --- Handlers ---
   const onSave = async () => {
-    setError(null); const method = editingId ? 'PUT' : 'POST'; const url = editingId ? `/api/admin/product/${editingId}` : '/api/admin/products'
-    const res = await fetch(url, { method, headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(form) })
+    setError(null);
+    const payload = { ...form };
+    if (payload.supplier_id === 'null') payload.supplier_id = null; // Asegurar que se envía null si no hay selección
+
+    const method = editingId ? 'PUT' : 'POST';
+    const url = editingId ? `/api/admin/product/${editingId}` : '/api/admin/products'
+    const res = await fetch(url, { method, headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) })
     if (!res.ok) { const j = await res.json().catch(()=>({message:'Error'})); setError(j.message || 'Error guardando'); return }
-    setForm({ name:'', description:'', price:0, image_url:'', category:'', stock:0, is_active:true }); setEditingId(null); setPage(1); fetchData({ page: 1 })
+    setForm(EMPTY_FORM); setEditingId(null); setPage(1); fetchData({ page: 1 })
   }
 
   const onSaveSupplier = async () => {
@@ -63,7 +72,11 @@ export default function AdminHome() {
     fetchSuppliers()
   }
 
-  const onEdit = (p: Product) => { setEditingId(p.id); setForm({ name:p.name, description:p.description??'', price:p.price, image_url:p.image_url??'', category:p.category??'', stock:p.stock, is_active:p.is_active }); window.scrollTo({ top:0, behavior:'smooth' }) }
+  const onEdit = (p: Product) => { 
+    setEditingId(p.id); 
+    setForm({ ...p, supplier_id: p.supplier_id || null }); 
+    window.scrollTo({ top:0, behavior:'smooth' }) 
+  }
   const onDelete = async (id: string) => { if (!confirm('¿Eliminar este producto?')) return; const res = await fetch(`/api/admin/product/${id}`, { method: 'DELETE' }); if (!res.ok) { alert('Error eliminando'); return } fetchData() }
   const onUpload = async (file?: File) => { if (!file) return; const fd = new FormData(); fd.append('file', file); const res = await fetch('/api/admin/upload', { method:'POST', body: fd }); const j = await res.json(); if (!j.ok) { alert(j.message || 'Error subiendo'); return } setForm(f => ({ ...f, image_url: j.url })) }
   const isEditing = Boolean(editingId)
@@ -116,6 +129,12 @@ export default function AdminHome() {
           {error && <div className="mt-2 text-sm text-red-400">{error}</div>}
           <div className="mt-4 grid gap-4">
             <label className="grid"><span className="text-sm opacity-80">Nombre</span><input className="rounded-lg bg-white/10 px-3 py-2" value={form.name || ''} onChange={e=>setForm(f=>({...f, name:e.target.value}))} /></label>
+            <label className="grid"><span className="text-sm opacity-80">Proveedor</span>
+              <select className="rounded-lg bg-white/10 px-3 py-2" value={form.supplier_id || 'null'} onChange={e=>setForm(f=>({...f, supplier_id:e.target.value}))}>
+                <option value="null">Sin proveedor</option>
+                {suppliers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+              </select>
+            </label>
             <label className="grid"><span className="text-sm opacity-80">Precio (CLP)</span><input type="number" className="rounded-lg bg-white/10 px-3 py-2" value={(form.price as any)||0} onChange={e=>setForm(f=>({...f, price:Number(e.target.value)}))} /></label>
             <label className="grid"><span className="text-sm opacity-80">Descripción</span><textarea className="rounded-lg bg-white/10 px-3 py-2" value={form.description || ''} onChange={e=>setForm(f=>({...f, description:e.target.value}))} /></label>
             <label className="grid"><span className="text-sm opacity-80">Imagen URL</span><input className="rounded-lg bg-white/10 px-3 py-2" value={form.image_url || ''} onChange={e=>setForm(f=>({...f, image_url:e.target.value}))} /></label>
@@ -126,7 +145,7 @@ export default function AdminHome() {
           </div>
           <div className="mt-4 flex gap-2">
             <button onClick={onSave} className="rounded-md bg-emerald-500/90 hover:bg-emerald-500 text-black px-4 py-2 font-semibold">{isEditing ? 'Guardar cambios' : 'Crear producto'}</button>
-            {isEditing && (<button onClick={()=>{ setEditingId(null); setForm({ name:'', description:'', price:0, image_url:'', category:'', stock:0, is_active:true }) }} className="rounded-md border px-4 py-2 hover:bg-white/10">Cancelar</button>)}
+            {isEditing && (<button onClick={()=>{ setEditingId(null); setForm(EMPTY_FORM) }} className="rounded-md border px-4 py-2 hover:bg-white/10">Cancelar</button>)}
           </div>
         </section>
         <section id="suppliers" className="rounded-2xl bg-white/5 border border-white/10 p-6">
