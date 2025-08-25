@@ -1,4 +1,4 @@
-import { supabase } from '../../../lib/supabaseAdmin';
+import { supabaseAdmin } from '../../../lib/supabaseAdmin';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // GET /api/admin/suppliers -> devuelve todos los proveedores
@@ -7,7 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const { data, error } = await supabase.from('suppliers').select('*').order('created_at');
+      const { data, error } = await supabaseAdmin.from('suppliers').select('*').order('created_at');
       if (error) throw error;
       return res.status(200).json(data);
     } catch (error: any) {
@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'El nombre es obligatorio' });
     }
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('suppliers')
         .insert([{ name, contact_email, website }])
         .select()
