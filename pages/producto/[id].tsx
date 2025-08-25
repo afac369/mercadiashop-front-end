@@ -4,7 +4,7 @@ import Image from 'next/image';
 import LayoutPro from '../../components/LayoutPro';
 import { supabase } from '../../lib/supabaseClient';
 import { Product, Supplier } from '../../lib/types';
-import { formatCLP } from '../../../utils/currency';
+import { formatCLP } from '../../utils/currency';
 import { useCart } from '../../../context/CartContext';
 import { useToast } from '../../../components/ToastProvider';
 import { useState } from 'react';
