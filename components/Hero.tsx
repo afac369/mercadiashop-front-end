@@ -10,7 +10,7 @@ export default function Hero() {
         alt="MercadIAshop"
         fill
         priority
-        className="object-cover" // <-- sin z-index negativo
+        className="object-cover -z-10" // <-- sin z-index negativo
       />
 
       {/* Overlay translúcido encima de la imagen */}
