@@ -12,7 +12,6 @@
    - NEXT_PUBLIC_SUPABASE_URL
    - NEXT_PUBLIC_SUPABASE_ANON_KEY
    - SUPABASE_SERVICE_ROLE_KEY
-   - ADMIN_PASS
 3) En Supabase → SQL: ejecuta `supabase/products.sql` (y `supabase/seed.sql` opcional).
 4) En Supabase → Storage: crea bucket público `product-images`.
 5) Ejecuta: `npm run dev`. Admin en `/admin/login`.
