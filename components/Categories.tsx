@@ -94,7 +94,7 @@ export default function Categories({ categories = defaultCategories }: { categor
   return (
     <section id="categorias" className="pt-10">
       <h2 className="text-2xl font-bold mb-4">Categorías</h2>
-      <div className="bg-gray-800 text-white rounded-lg p-4">
+      <div className="rounded-2xl p-5 bg-white/5 border border-white/10">
         {categories.map((c) => (
           <CategoryItem key={c.id} category={c} onSelect={handleSelectCategory} />
         ))}

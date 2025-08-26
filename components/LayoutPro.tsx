@@ -49,7 +49,7 @@ export default function LayoutPro({ children }: Props) {
               </Link>
               <nav className="hidden md:flex items-center gap-6 text-sm">
                 <a href="/#productos">Productos</a>
-                <MegaMenu />
+                <a href="/#categorias">Categorías</a>
                 <a href="/#contacto">Contacto</a>
               </nav>
               <div className="flex items-center gap-2">
