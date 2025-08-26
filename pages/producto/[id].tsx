@@ -24,7 +24,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    add({ ...product, qty: quantity });
+    add(product, quantity);
     toast(`Agregado al carrito (${quantity} unidad${quantity > 1 ? 'es' : ''})`);
   };
 
