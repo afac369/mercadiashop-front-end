@@ -1,52 +1,9 @@
-// pages/api/admin/upload.ts
-import type { NextApiRequest, NextApiResponse } from 'next'
-import fs from 'fs/promises'
-import { randomUUID } from 'crypto'
-import { supabaseAdmin } from '../../../lib/supabaseAdmin'
++ const MAX_SIZE = 5 * 1024 * 1024; // 5MB
++ const ALLOWED = ['image/jpeg','image/png','image/webp','image/avif'];
 
-export const config = { api: { bodyParser: false } }
+   const buf = await fs.readFile(f.filepath)
++  if (f.size && f.size > MAX_SIZE) return res.status(413).json({ ok:false, message:'Archivo demasiado grande' })
++  if (f.mimetype && !ALLOWED.includes(f.mimetype)) return res.status(400).json({ ok:false, message:'Tipo de archivo no permitido' })
 
-// Tipado mínimo para el archivo subido
-type UploadFile = {
-  filepath: string
-  originalFilename?: string | null
-  mimetype?: string | null
-  size?: number
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed')
-
-  // Import dinámico para serverless
-  const formidable = (await import('formidable')).default
-
-  const form = formidable({ multiples: false, maxFileSize: 5 * 1024 * 1024 })
-
-  const { files } = await new Promise<{ files: { file?: UploadFile | UploadFile[] } }>((resolve, reject) => {
-    form.parse(
-      req,
-      (err: unknown, _fields: Record<string, unknown>, files: { file?: UploadFile | UploadFile[] }) => {
-        if (err) return reject(err as Error)
-        resolve({ files })
-      }
-    )
-  })
-
-  const f = files.file
-  if (!f || Array.isArray(f)) {
-    return res.status(400).json({ ok: false, message: 'Archivo faltante. Usa campo "file".' })
-  }
-
-  const buf = await fs.readFile(f.filepath)
-  const ext = String(f.originalFilename || 'image.jpg').split('.').pop()?.toLowerCase() || 'jpg'
-  const path = `products/${randomUUID()}.${ext}`
-
-  const { error: upErr } = await supabaseAdmin.storage
-    .from('product-images')
-    .upload(path, buf, { contentType: f.mimetype || 'application/octet-stream', upsert: false })
-
-  if (upErr) return res.status(500).json({ ok: false, message: upErr.message })
-
-  const { data: pub } = supabaseAdmin.storage.from('product-images').getPublicUrl(path)
-  return res.status(200).json({ ok: true, path, url: pub.publicUrl })
-}
+   const ext = String(f.originalFilename || 'image.jpg').split('.').pop()?.toLowerCase() || 'jpg'
+   const path = `products/${randomUUID()}.${ext}`
