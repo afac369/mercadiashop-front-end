@@ -1,106 +1,122 @@
-import { GetServerSideProps, NextPage } from 'next';
+// pages/producto/[id].tsx
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import LayoutPro from '../../components/LayoutPro';
-import { supabase } from '../../lib/supabaseClient';
-import { Product, Supplier } from '../../lib/types';
-import { formatCLP } from '../../utils/currency';
-import { useCart } from '../../context/CartContext';
-import { useToast } from '../../components/ToastProvider';
 import { useState } from 'react';
+import Toast from '../../components/Toast';
+import MiniCart from '../../components/MiniCart';
+import { supabase } from '../../lib/supabaseClient';
 
-type ProductWithSupplier = Product & {
-  suppliers: Pick<Supplier, 'name'> | null;
+type Product = {
+  id: string;
+  name: string;
+  description?: string | null;
+  images?: string[] | null;
+  image_url?: string | null;
+  price_cents?: number | null;
+  currency?: string | null;
+  stock?: number | null;
 };
 
-interface Props {
-  product: ProductWithSupplier;
-}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await supabase.from('productos').select('id').eq('is_active', true).limit(100);
+  const paths = (data ?? []).map((p) => ({ params: { id: String(p.id) } }));
+  return { paths, fallback: 'blocking' };
+};
 
-const ProductPage: NextPage<Props> = ({ product }) => {
-  const pageTitle = `${product.name} | MercadIAshop`;
-  const { add } = useCart();
-  const { toast } = useToast();
-  const [quantity, setQuantity] = useState(1);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = String(params?.id);
+  const { data, error } = await supabase
+    .from('productos')
+    .select('id,name,description,images,image_url,price_cents,currency,stock,is_active,created_at')
+    .eq('id', id)
+    .eq('is_active', true)
+    .single();
 
-  const handleAddToCart = () => {
-    add(product, quantity);
-    toast(`Agregado al carrito (${quantity} unidad${quantity > 1 ? 'es' : ''})`);
+  if (error || !data) return { notFound: true, revalidate: 30 };
+  return { props: { product: data }, revalidate: 60 };
+};
+
+export default function PDP({ product }: { product: Product }) {
+  const [toast, setToast] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+
+  const img = (Array.isArray(product.images) && product.images[0]) || product.image_url || '/placeholder.svg';
+  const price = (product.price_cents ?? 0) / 100;
+  const inStock = (product.stock ?? 0) > 0;
+  const currency = product.currency || 'CLP';
+
+  function addToCart() {
+    setToast(true);
+    setOpenCart(true);
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'add_to_cart', {
+        items: [{ item_id: product.id, item_name: product.name, price }],
+      });
+    }
+  }
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: [img],
+    description: product.description || '',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: currency,
+      price: price.toFixed(0),
+      availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL || ''}/producto/${product.id}`,
+    },
   };
 
   return (
-    <LayoutPro>
+    <>
       <Head>
-        <title>{pageTitle}</title>
-        {product.description && <meta name="description" content={product.description} />}
-        <meta property="og:title" content={pageTitle} />
-        {product.description && <meta property="og:description" content={product.description} />}
-        {product.image_url && <meta property="og:image" content={product.image_url} />}
+        <title>{product.name} | MercadIAshop</title>
+        <meta name="description" content={product.description || product.name} />
+        <meta property="og:title" content={`${product.name} | MercadIAshop`} />
+        <meta property="og:image" content={img as string} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="aspect-[4/3] relative rounded-2xl bg-white/5 overflow-hidden">
-            {product.image_url ? (
-              <Image src={product.image_url} alt={product.name} fill className="object-cover" />
-            ) : (
-              <div className="w-full h-full grid place-content-center">Sin imagen</div>
-            )}
-          </div>
-          <div>
-            {product.suppliers && (
-              <div className="text-sm opacity-80 mb-2">Vendido por: {product.suppliers.name}</div>
-            )}
-            <h1 className="text-3xl lg:text-4xl font-bold">{product.name}</h1>
-            <p className="text-3xl font-extrabold mt-4">{formatCLP(product.price)}</p>
-            
-            {product.description && (
-              <div className="mt-6 prose prose-invert">
-                <p>{product.description}</p>
-              </div>
-            )}
-
-            <div className="mt-8 flex items-center gap-4">
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
-                className="w-20 rounded-lg bg-white/10 px-3 py-2 text-center"
-              />
-              <button
-                onClick={handleAddToCart}
-                className="btn-primary flex-grow py-3 text-lg font-semibold"
-              >
-                Añadir al carrito
-              </button>
-            </div>
-          </div>
+      <main className="container mx-auto p-4 grid gap-6 grid-cols-1 lg:grid-cols-2">
+        <div className="relative w-full aspect-square">
+          <Image
+            src={img as string}
+            alt={product.name}
+            fill
+            className="object-cover rounded-2xl"
+            sizes="(min-width:1024px) 50vw, 100vw"
+            priority
+          />
         </div>
-      </div>
-    </LayoutPro>
+        <div>
+          <h1 className="text-2xl font-semibold">{product.name}</h1>
+          <p className="mt-2 text-slate-700 whitespace-pre-line">{product.description}</p>
+          <p className="mt-4 text-2xl font-bold">
+            {currency} ${price.toLocaleString()}
+          </p>
+          <p className={`mt-1 text-sm ${inStock ? 'text-emerald-600' : 'text-rose-600'}`}>
+            {inStock ? 'En stock' : 'Sin stock'}
+          </p>
+          <button
+            className="mt-4 w-full md:w-auto rounded-xl bg-black text-white px-6 py-3"
+            onClick={addToCart}
+            disabled={!inStock}
+          >
+            Agregar al carrito
+          </button>
+        </div>
+      </main>
+
+      <MiniCart
+        open={openCart}
+        onClose={() => setOpenCart(false)}
+        items={[{ id: product.id, name: product.name, price, image: img, qty: 1 }]}
+      />
+      <Toast open={toast} text="Agregado al carrito" onClose={() => setToast(false)} />
+    </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params!;
-
-  const { data, error } = await supabase
-    .from('productos')
-    .select('*, suppliers(name)') // Join con la tabla de proveedores
-    .eq('id', id)
-    .single();
-
-  if (error || !data) {
-    console.error('Error fetching product', error);
-    return { notFound: true };
-  }
-
-  return {
-    props: {
-      product: data,
-    },
-  };
-};
-
-export default ProductPage;
+}

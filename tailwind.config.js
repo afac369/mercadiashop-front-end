@@ -7,9 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        hero: "url('/bg-mercadiashop.jpg')",
-      },
+      backgroundImage: { hero: "url('/bg-mercadiashop.jpg')" },
     },
   },
   safelist: ["bg-[url('/bg-mercadiashop.jpg')]"],
