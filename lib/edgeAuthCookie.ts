@@ -3,20 +3,24 @@ export const ADMIN_COOKIE = 'admin_session';
 type Role = 'admin' | 'staff';
 export type Payload = { uid: string; role: Role; exp: number };
 
-function b64urlEncode(bytes: Uint8Array): string {
-  let str = '';
-  for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
-  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+/** base64url -> ArrayBuffer (siempre ArrayBuffer "puro") */
+function base64urlToArrayBuffer(str: string): ArrayBuffer {
+  const normalized = str.replace(/-/g, '+').replace(/_/g, '/');
+  const pad = normalized.length % 4 === 0 ? '' : '='.repeat(4 - (normalized.length % 4));
+  const b64 = normalized + pad;
+
+  const binary = atob(b64);
+  const ab = new ArrayBuffer(binary.length);
+  const view = new Uint8Array(ab);
+  for (let i = 0; i < binary.length; i++) view[i] = binary.charCodeAt(i);
+  return ab;
 }
 
-function b64urlDecode(str: string): Uint8Array {
-  str = str.replace(/-/g, '+').replace(/_/g, '/');
-  const pad = str.length % 4 === 0 ? 0 : 4 - (str.length % 4);
-  str = str + '='.repeat(pad);
-  const bin = atob(str);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
+/** Uint8Array -> ArrayBuffer (copia, NO usa .buffer) */
+function u8ToArrayBuffer(u8: Uint8Array): ArrayBuffer {
+  const ab = new ArrayBuffer(u8.byteLength);
+  new Uint8Array(ab).set(u8);
+  return ab;
 }
 
 export async function verifyEdge(token: string | undefined, secret: string): Promise<Payload | null> {
@@ -24,25 +28,30 @@ export async function verifyEdge(token: string | undefined, secret: string): Pro
   const [body, sig] = token.split('.');
   if (!body || !sig) return null;
 
+  const encoder = new TextEncoder();
+
   const key = await crypto.subtle.importKey(
     'raw',
-    new TextEncoder().encode(secret),
+    encoder.encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['verify']
   );
 
-  const ok = await crypto.subtle.verify(
-    'HMAC',
-    key,
-    b64urlDecode(sig),
-    new TextEncoder().encode(body)
-  );
+  // Firmas/datos como ArrayBuffer "puro"
+  const signature = base64urlToArrayBuffer(sig);
+  const dataBuf = u8ToArrayBuffer(encoder.encode(body));
+
+  const ok = await crypto.subtle.verify('HMAC', key, signature, dataBuf);
   if (!ok) return null;
 
-  const json = new TextDecoder().decode(b64urlDecode(body));
+  // Decodifica payload
+  const bodyBuf = base64urlToArrayBuffer(body);
+  const json = new TextDecoder().decode(new Uint8Array(bodyBuf));
   const payload = JSON.parse(json) as Payload;
+
   if (!payload?.uid || !payload?.role || !payload?.exp) return null;
   if (Math.floor(Date.now() / 1000) > payload.exp) return null;
+
   return payload;
 }

@@ -1,22 +1,17 @@
--// tailwind.config.js
--module.exports = {
-+/** @type {import('tailwindcss').Config} */
-+module.exports = {
-   content: [
-     "./pages/**/*.{ts,tsx}",
-     "./components/**/*.{ts,tsx}",
-     "./app/**/*.{ts,tsx}",
-   ],
-   theme: {
-     extend: {
-       backgroundImage: {
-         hero: "url('/bg-mercadiashop.jpg')",
-       },
-     },
-   },
--  plugins: [],
--};
--safelist: ["bg-[url('/bg-mercadiashop.jpg')]"];
-+  safelist: ["bg-[url('/bg-mercadiashop.jpg')]"],
-+  plugins: [],
-+};
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./pages/**/*.{js,jsx,ts,tsx,mdx}",
+    "./components/**/*.{js,jsx,ts,tsx,mdx}",
+    "./app/**/*.{js,jsx,ts,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      backgroundImage: {
+        hero: "url('/bg-mercadiashop.jpg')",
+      },
+    },
+  },
+  safelist: ["bg-[url('/bg-mercadiashop.jpg')]"],
+  plugins: [],
+};
