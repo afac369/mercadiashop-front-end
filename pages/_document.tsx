@@ -18,7 +18,7 @@ export default function Document() {
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220" />
         {/* Script de tema eliminado para usar next-themes */}
       </Head>
-      <body className="bg-white text-slate-900 dark:bg-neutral-950 dark:text-neutral-50">
+      <body>
         <Main />
         <NextScript />
       </body>

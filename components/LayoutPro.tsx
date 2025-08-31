@@ -40,7 +40,7 @@ export default function LayoutPro({ children }: Props) {
       <FreeShippingBar />
 
       {/* Añadimos soporte visual a dark mode sin cambiar tu layout: solo clases */}
-      <div className="relative min-h-screen overflow-x-hidden bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+      <div className="relative min-h-screen overflow-x-hidden">
         <header className="sticky top-0 z-40">
           <div className="mx-auto max-w-7xl px-4 py-3">
             <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between gap-3 border border-black/10 dark:border-white/10">
