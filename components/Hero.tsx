@@ -13,11 +13,13 @@ export default function Hero() {
         className="object-cover z-0"
       />
 
-      {/* Overlay translúcido eliminado para máxima claridad */}
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black/50 dark:bg-black/70 z-10"></div>
 
       {/* Contenido por encima del overlay */}
-      <div className="relative z-20 px-6 py-10 md:px-10">
-        {/* Contenido de texto eliminado a petición del usuario */}
+      <div className="relative z-20 px-6 py-10 md:px-10 text-white">
+        <h1 className="text-4xl font-extrabold tracking-tight">MercadIAshop</h1>
+        <p className="mt-2 text-lg">Tecnología de vanguardia a tu alcance.</p>
       </div>
     </section>
   );

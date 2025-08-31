@@ -26,7 +26,7 @@ export default function ProductCard({
   const { add } = useCart();
 
   return (
-    <article className="rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+    <article className="rounded-2xl border border-slate-200 dark:border-slate-800 dark:bg-slate-900 overflow-hidden hover:shadow-md transition">
       <a href={`/producto/${id}`} className="block relative aspect-square">
         <Image
           src={img || '/placeholder.svg'}
@@ -43,13 +43,13 @@ export default function ProductCard({
         </a>
 
         {description && (
-          <p className="mt-1 text-sm text-slate-600 line-clamp-2">{description}</p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">{description}</p>
         )}
 
-        <p className="mt-1 text-slate-700">${price.toLocaleString()}</p>
+        <p className="mt-1 text-slate-700 dark:text-slate-300">${price.toLocaleString()}</p>
 
         <button
-          className="mt-3 w-full rounded-xl bg-black text-white py-2 text-sm"
+          className="mt-3 w-full rounded-xl bg-black text-white dark:bg-white dark:text-black py-2 text-sm"
           onClick={() =>
             onAdd
               ? onAdd({ id, name, price, image: img })

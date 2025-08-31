@@ -46,9 +46,9 @@ export default function HeroCarousel() {
             <div key={i} className="min-w-0 flex-[0_0_100%]">
               <div className={`relative px-6 py-16 md:px-16 md:py-24 bg-gradient-to-r ${s.bg}`}>
                 <h1 className="text-4xl md:text-6xl font-extrabold heading-gradient">{s.title}</h1>
-                <p className="mt-3 text-white/80">{s.subtitle}</p>
+                <p className="mt-3 text-slate-700 dark:text-white/80">{s.subtitle}</p>
                 <div className="mt-6">
-                  <Link href={s.href} className="btn-primary">{s.cta}</Link>
+                  <Link href={s.href} className="inline-block rounded-lg bg-black px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90 dark:bg-white dark:text-black">{s.cta}</Link>
                 </div>
               </div>
             </div>

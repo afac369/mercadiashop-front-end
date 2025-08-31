@@ -51,8 +51,8 @@ export default function SearchFilters() {
         <input type="number" min="0" placeholder="Máx $" value={max} onChange={e=>setMax(e.target.value)}
                className="rounded-xl bg-white/70 dark:bg-white/10 border border-black/10 dark:border-white/10 px-3 py-2"/>
         <div className="flex gap-2">
-          <button onClick={apply} className="btn-primary flex-1">Aplicar</button>
-          <button onClick={clearAll} className="btn-ghost">Limpiar</button>
+          <button onClick={apply} className="inline-block rounded-lg bg-black px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90 dark:bg-white dark:text-black flex-1">Aplicar</button>
+          <button onClick={clearAll} className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 dark:text-white">Limpiar</button>
         </div>
       </div>
     </section>

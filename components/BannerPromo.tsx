@@ -31,7 +31,7 @@ export default function BannerPromo() {
             </h3>
             <p className="small-muted mt-1">Termina en {d}d {h}h {m}m {r}s</p>
           </div>
-          <Link href="#productos" className="btn-primary self-start">Comprar ahora</Link>
+          <Link href="#productos" className="inline-block rounded-lg bg-black px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90 dark:bg-white dark:text-black self-start">Comprar ahora</Link>
         </div>
       </div>
     </section>

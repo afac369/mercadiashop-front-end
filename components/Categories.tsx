@@ -59,7 +59,7 @@ const CategoryItem = ({ category, onSelect }: { category: Category, onSelect: (i
       <a
         href={hasSubcategories ? '#' : `/#productos?category=${category.id}`}
         onClick={handleToggle}
-        className="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer"
+        className="flex items-center justify-between p-2 rounded-md hover:bg-slate-200 dark:hover:bg-gray-700 cursor-pointer"
       >
         <div className="flex items-center">
           <category.icon className="h-5 w-5 mr-3" />
@@ -72,7 +72,7 @@ const CategoryItem = ({ category, onSelect }: { category: Category, onSelect: (i
         )}
       </a>
       {hasSubcategories && isExpanded && (
-        <div className="pl-8 mt-1 border-l border-gray-600">
+        <div className="pl-8 mt-1 border-l border-slate-300 dark:border-gray-600">
           {category.subcategories?.map(subCategory => (
             <CategoryItem key={subCategory.id} category={subCategory} onSelect={onSelect} />
           ))}
@@ -94,7 +94,7 @@ export default function Categories({ categories = defaultCategories }: { categor
   return (
     <section id="categorias" className="pt-10">
       <h2 className="text-2xl font-bold mb-4">Categorías</h2>
-      <div className="rounded-2xl p-5 bg-white/5 border border-white/10">
+      <div className="rounded-2xl p-5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
         {categories.map((c) => (
           <CategoryItem key={c.id} category={c} onSelect={handleSelectCategory} />
         ))}
