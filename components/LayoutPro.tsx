@@ -1,10 +1,10 @@
-// components/LayoutPro.tsx
+//components/LayoutPro.tsx
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { formatCLP } from "../utils/currency";
-import MegaMenu from "./MegaMenu";
+// import MegaMenu from "./MegaMenu"; // (no se usa; lo dejamos comentado para evitar lints)
 import ThemeToggle from "./ThemeToggle";
 import FreeShippingBar from "./FreeShippingBar";
 import CartDrawer from "./CartDrawer";
@@ -33,14 +33,17 @@ export default function LayoutPro({ children }: Props) {
         {/* Favicon (añadí ?v=2 para romper caché) */}
         <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        {/* Permite a los navegadores usar ambos temas */}
+        <meta name="color-scheme" content="light dark" />
       </Head>
 
       <FreeShippingBar />
 
-      <div className="relative min-h-screen overflow-x-hidden">
+      {/* Añadimos soporte visual a dark mode sin cambiar tu layout: solo clases */}
+      <div className="relative min-h-screen overflow-x-hidden bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
         <header className="sticky top-0 z-40">
           <div className="mx-auto max-w-7xl px-4 py-3">
-            <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between gap-3">
+            <div className="glass rounded-2xl px-5 py-3 flex items-center justify-between gap-3 border border-black/10 dark:border-white/10">
               <Link
                 href="/"
                 className="text-lg md:text-xl font-extrabold tracking-tight"
@@ -68,7 +71,7 @@ export default function LayoutPro({ children }: Props) {
 
         <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
 
-        <footer className="mt-16 border-t border-white/10">
+        <footer className="mt-16 border-t border-black/10 dark:border-white/10">
           <div className="mx-auto max-w-7xl px-4 py-10 grid md:grid-cols-3 gap-6 small-muted">
             <div>
               <div className="font-bold">MercadIAshop</div>

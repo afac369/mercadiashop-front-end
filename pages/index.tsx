@@ -1,3 +1,4 @@
+//pages/index.tsx
 import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
 import Hero from "../components/Hero";

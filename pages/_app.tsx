@@ -1,7 +1,9 @@
+//pages/_apps.tsx
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 
+import ThemeProvider from '../components/ThemeProvider';
 import { CartProvider } from '../context/CartContext';
 import { ToastProvider } from '../components/ToastProvider';
 import Analytics from '../components/Analytics';
@@ -23,11 +25,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <CartProvider>
-      <ToastProvider>
-        <Analytics />
-        <Component {...pageProps} />
-      </ToastProvider>
-    </CartProvider>
+    <ThemeProvider>
+      <CartProvider>
+        <ToastProvider>
+          <Analytics />
+          <Component {...pageProps} />
+        </ToastProvider>
+      </CartProvider>
+    </ThemeProvider>
   );
 }
