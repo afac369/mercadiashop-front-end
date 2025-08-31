@@ -5,9 +5,11 @@ import type { ReactNode } from 'react';
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"       // inicia en tema claro por defecto
-      enableSystem               // respeta preferencia del SO si luego eliges "system"
+      attribute="class"          // usa la clase 'dark' en <html>
+      defaultTheme="light"       // arranca en CLARO
+      enableSystem={false}       // deshabilita 'system' para evitar confusión
+      storageKey="theme"         // clave persistida en localStorage
+      themes={['light', 'dark']} // solo dos opciones
       disableTransitionOnChange
     >
       {children}
