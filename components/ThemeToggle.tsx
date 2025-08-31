@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
-type Mode = "dark" | "light";
+type Mode = "light" | "dark";
 
 export default function ThemeToggle() {
   const { theme, systemTheme, setTheme } = useTheme();
@@ -11,14 +11,14 @@ export default function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  // Resuelve el tema actual (light/dark) considerando "system"
+  // Resuelve el tema actual (considerando "system"), por defecto 'light'
   const resolved: Mode = (theme === "system" ? systemTheme : theme) === "dark" ? "dark" : "light";
+  const isDark = resolved === "dark";
+  const currentLabel = isDark ? "Oscuro" : "Claro";
+  const nextLabel = isDark ? "claro" : "oscuro";
 
-  function toggle() {
-    setTheme(resolved === "dark" ? "light" : "dark");
-  }
+  const toggle = () => setTheme(isDark ? "light" : "dark");
 
-  // Evita desajustes de hidratación
   if (!mounted) {
     return (
       <button aria-label="Cambiar tema" className="chip hover:opacity-100" disabled>
@@ -26,12 +26,12 @@ export default function ThemeToggle() {
         <span className="hidden sm:inline">Claro</span>
       </button>
     );
-  }
+    }
 
   return (
-    <button onClick={toggle} aria-label="Cambiar tema" className="chip hover:opacity-100">
-      {resolved === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-      <span className="hidden sm:inline">{resolved === "dark" ? "Claro" : "Oscuro"}</span>
+    <button onClick={toggle} aria-label={`Cambiar a modo ${nextLabel}`} className="chip hover:opacity-100">
+      {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+      <span className="hidden sm:inline">{currentLabel}</span>
     </button>
   );
 }

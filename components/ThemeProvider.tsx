@@ -5,9 +5,9 @@ import type { ReactNode } from 'react';
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
-      attribute="class"           // añade la clase 'dark' al <html>
-      defaultTheme="system"       // respeta el tema del SO
-      enableSystem
+      attribute="class"
+      defaultTheme="light"       // inicia en tema claro por defecto
+      enableSystem               // respeta preferencia del SO si luego eliges "system"
       disableTransitionOnChange
     >
       {children}
