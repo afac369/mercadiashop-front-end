@@ -16,21 +16,7 @@ export default function Document() {
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220" />
-        {/* Script crítico: aplica el tema guardado ANTES del primer pintado */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-(function() {
-  try {
-    var t = localStorage.getItem('theme');
-    var dark = t === 'dark';
-    var root = document.documentElement;
-    if (dark) root.classList.add('dark'); else root.classList.remove('dark');
-  } catch (e) {}
-})();
-            `.trim(),
-          }}
-        />
+        {/* Script de tema eliminado para usar next-themes */}
       </Head>
       <body className="bg-white text-slate-900 dark:bg-neutral-950 dark:text-neutral-50">
         <Main />
