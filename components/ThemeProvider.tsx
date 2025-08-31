@@ -8,7 +8,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
       attribute="class"          // usa la clase 'dark' en <html>
       defaultTheme="light"       // arranca en CLARO
       enableSystem={false}       // deshabilita 'system' para evitar confusión
-      storageKey="theme"         // clave persistida en localStorage
+      storageKey="theme-v2"         // clave persistida en localStorage
       themes={['light', 'dark']} // solo dos opciones
       disableTransitionOnChange
     >
