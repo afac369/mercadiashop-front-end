@@ -27,23 +27,27 @@ export default function CheckoutPage() {
     try {
       setLoading(true);
       if (items.length === 0) throw new Error("Tu carrito está vacío.");
+
       const payload = {
         email: email || undefined,
         session_id: sessionId,
         currency: "CLP",
         items: items.map((i) => ({ product_id: i.id, quantity: i.qty })),
       };
+
       const r = await createOrder(payload);
-      // opcional: persistir email para próximos checkouts
+
+      // Persistencia ligera para la página de éxito (no altera UI)
       try {
-        if (typeof window !== "undefined" && email) {
-          window.localStorage.setItem("email_hint", email);
+        if (typeof window !== "undefined") {
+          window.sessionStorage.setItem("last_order_total_cents", String(r.total_cents));
+          if (email) window.localStorage.setItem("email_hint", email);
         }
       } catch {}
-      alert(`✅ Orden creada: ${r.order_id}\nTotal: ${formatCLP(r.total_cents)}`);
+
+      // Limpia carrito y redirige a página de éxito con el order_id
       clear();
-      // aquí puedes redirigir a una página de éxito si la tienes
-      // window.location.href = `/checkout/success?order_id=${r.order_id}`;
+      window.location.href = `/checkout/success?order_id=${encodeURIComponent(r.order_id)}`;
     } catch (e: any) {
       alert(e?.message || "Error al crear la orden");
     } finally {
