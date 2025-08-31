@@ -1,5 +1,5 @@
-// components/ProductCard.tsx
 import Image from 'next/image';
+import { useCart } from '../context/CartContext';
 
 type AddPayload = { id: string; name: string; price: number; image?: string };
 
@@ -23,6 +23,7 @@ export default function ProductCard({
   onAdd,
 }: Props) {
   const img = image ?? image2;
+  const { add } = useCart();
 
   return (
     <article className="rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition">
@@ -49,7 +50,11 @@ export default function ProductCard({
 
         <button
           className="mt-3 w-full rounded-xl bg-black text-white py-2 text-sm"
-          onClick={() => onAdd?.({ id, name, price, image: img })}
+          onClick={() =>
+            onAdd
+              ? onAdd({ id, name, price, image: img })
+              : add({ id, name, price, image: img }, 1)
+          }
           aria-label={`Agregar ${name} al carrito`}
         >
           Agregar

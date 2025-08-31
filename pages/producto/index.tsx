@@ -1,4 +1,3 @@
-// pages/productos/index.tsx
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useMemo, useState } from 'react';
@@ -6,6 +5,7 @@ import ProductCard from '../../components/ProductCard';
 import MiniCart, { MiniCartItem } from '../../components/MiniCart';
 import Toast from '../../components/Toast';
 import { supabase } from '../../lib/supabaseClient';
+import { useCart } from '../../context/CartContext';
 
 type Product = {
   id: string;
@@ -36,6 +36,7 @@ export default function Productos({ products }: { products: Product[] }) {
   const [openCart, setOpenCart] = useState(false);
   const [items, setItems] = useState<MiniCartItem[]>([]);
   const [toast, setToast] = useState<{ open: boolean; text: string }>({ open: false, text: '' });
+  const { add } = useCart(); // integra con el carrito global SIN cambiar la UI
 
   const listForJsonLd = useMemo(
     () =>
@@ -48,9 +49,15 @@ export default function Productos({ products }: { products: Product[] }) {
   );
 
   function handleAdd(p: { id: string; name: string; price: number; image?: string }) {
+    // 1) agrega al carrito global (para checkout/back-end)
+    add({ id: p.id, name: p.name, price: p.price, image: p.image }, 1);
+
+    // 2) mantiene la UI existente del MiniCart (sin alterar diseño)
     setItems((prev) => [{ id: p.id, name: p.name, price: p.price, image: p.image, qty: 1 }, ...prev]);
     setOpenCart(true);
     setToast({ open: true, text: 'Agregado al carrito' });
+
+    // 3) evento GA (si existe)
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'add_to_cart', { items: [{ item_id: p.id, item_name: p.name, price: p.price }] });
     }
