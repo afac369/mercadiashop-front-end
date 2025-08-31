@@ -11,6 +11,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
       storageKey="theme"         // clave persistida en localStorage
       themes={['light', 'dark']} // solo dos opciones
       disableTransitionOnChange
+      forcedTheme="light"
     >
       {children}
     </NextThemesProvider>
