@@ -49,7 +49,7 @@ export default function ProductCard({
         <p className="mt-1 text-slate-700 dark:text-slate-300">${price.toLocaleString()}</p>
 
         <button
-          className="mt-3 w-full rounded-xl bg-black text-white dark:bg-white dark:text-black py-2 text-sm"
+          className="mt-3 w-full rounded-xl bg-black text-white dark:bg-white dark:text-black py-2 text-sm transition-transform active:scale-95"
           onClick={() =>
             onAdd
               ? onAdd({ id, name, price, image: img })
