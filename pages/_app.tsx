@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { CartProvider } from '../context/CartContext';
 import { ToastProvider } from '../components/ToastProvider';
 import Analytics from '../components/Analytics';
+import ThemeProvider from '../components/ThemeProvider';
 
 // Genera y persiste un session_id simple para asociar órdenes (sin tocar UI)
 function ensureSessionId() {
@@ -24,11 +25,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <CartProvider>
-      <ToastProvider>
-        <Analytics />
-        <Component {...pageProps} />
-      </ToastProvider>
-    </CartProvider>
+    <ThemeProvider>
+      <CartProvider>
+        <ToastProvider>
+          <Analytics />
+          <Component {...pageProps} />
+        </ToastProvider>
+      </CartProvider>
+    </ThemeProvider>
   );
 }
