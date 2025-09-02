@@ -90,7 +90,7 @@ export default function LayoutPro({ children }: Props) {
               </ul>
             </div>
             <div className="md:text-right small-muted">
-              © {new Date().getFullYear()} MercadIAshop.
+              © {new Date().getFullYear()} MercadIAshop. Todos los derechos reservados.
             </div>
           </div>
         </footer>
