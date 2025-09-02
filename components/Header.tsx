@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { useCart } from '../context/CartContext';
 import { formatCLP } from '../utils/currency';
+import { ShoppingCart } from 'lucide-react';
 
 type Props = {
   onOpenCart?: () => void; // usa esto para abrir tu CartDrawer si lo tienes
@@ -45,7 +46,7 @@ export default function Header({ onOpenCart }: Props) {
               className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm transition hover:bg-black hover:text-white"
               aria-label="Abrir carrito"
             >
-              Carrito
+              <ShoppingCart className="h-4 w-4" />
               <span className="relative inline-flex h-2.5 w-2.5 items-center justify-center">
                 <span
                   className={`absolute inline-flex h-2.5 w-2.5 rounded-full ${
