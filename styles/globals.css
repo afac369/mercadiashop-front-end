@@ -9,3 +9,11 @@ df-messenger { z-index: 2147483000 !important; }
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.btn-primary, .btn-ghost, .chip {
+  transition: transform 0.1s ease-in-out;
+}
+
+.btn-primary:active, .btn-ghost:active, .chip:active {
+  transform: scale(0.95);
+}
