@@ -103,7 +103,7 @@ export default function CheckoutPage() {
         </section>
 
         <div className="flex gap-2">
-          <a href="/productos" className="btn-ghost">Seguir comprando</a>
+          <a href="/" className="btn-ghost">Seguir comprando</a>
           <button
             onClick={handleConfirmar}
             disabled={loading || items.length === 0}
