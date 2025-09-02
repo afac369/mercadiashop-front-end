@@ -9,6 +9,7 @@ import ThemeToggle from "./ThemeToggle";
 import FreeShippingBar from "./FreeShippingBar";
 import CartDrawer from "./CartDrawer";
 import DialogflowWidget from "./DialogflowWidget";
+import { ShoppingCart } from "lucide-react";
 
 type Props = { children: React.ReactNode };
 
@@ -58,7 +59,7 @@ export default function LayoutPro({ children }: Props) {
               <div className="flex items-center gap-2">
                 <ThemeToggle />
                 <button onClick={() => setOpenCart(true)} className="chip">
-                  <span>Carrito</span>
+                  <ShoppingCart className="h-5 w-5" />
                   <span className="rounded-full bg-emerald-400 text-black px-2 py-0.5 text-[10px] font-bold">
                     {totalQty}
                   </span>
