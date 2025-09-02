@@ -39,7 +39,7 @@ export default function ContactoPage() {
               <div>
                 <h3 className="font-semibold">Email de Soporte</h3>
                 <p className="opacity-80">¿Preguntas sobre tu pedido? Escríbenos.</p>
-                <a href="mailto:soporte@mercadiashop.com" className="text-emerald-500 hover:underline">soporte@mercadiashop.com</a>
+                <a href="mailto:mercadia.web@gmail.com" className="text-emerald-500 hover:underline">mercadia.web@gmail.com</a>
               </div>
               <div>
                 <h3 className="font-semibold">Horario de Atención</h3>

@@ -40,7 +40,7 @@ export default function PoliticasPage() {
           </ul>
           <h4>Proceso de Devolución</h4>
           <p>
-            Para iniciar una devolución, por favor contáctanos en <a href="mailto:soporte@mercadiashop.com">soporte@mercadiashop.com</a>. Te proporcionaremos las instrucciones detalladas. Ten en cuenta que los costos de envío de la devolución corren por cuenta del cliente.
+            Para iniciar una devolución, por favor contáctanos en <a href="mailto:mercadia.web@gmail.com">mercadia.web@gmail.com</a>. Te proporcionaremos las instrucciones detalladas. Ten en cuenta que los costos de envío de la devolución corren por cuenta del cliente.
           </p>
         </section>
 
