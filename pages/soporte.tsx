@@ -1,5 +1,6 @@
 import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -49,6 +50,9 @@ export default function SoportePage() {
           <h2 className="text-2xl font-semibold">¿No encontraste tu respuesta?</h2>
           <p className="mt-2 opacity-80">Nuestro equipo está listo para ayudarte.</p>
           <a href="/contacto" className="btn-primary mt-4 inline-block">Contáctanos</a>
+        </div>
+        <div className="text-center mt-12">
+          <Link href="/" className="btn-primary inline-block">Volver a página principal</Link>
         </div>
       </main>
     </LayoutPro>

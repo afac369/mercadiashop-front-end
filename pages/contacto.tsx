@@ -1,5 +1,6 @@
 import Head from "next/head";
 import LayoutPro from "../components/LayoutPro";
+import Link from "next/link";
 
 export default function ContactoPage() {
   return (
@@ -52,6 +53,9 @@ export default function ContactoPage() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="text-center mt-12">
+          <Link href="/" className="btn-primary inline-block">Volver a página principal</Link>
         </div>
       </main>
     </LayoutPro>
