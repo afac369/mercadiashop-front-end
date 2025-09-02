@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Contenido por encima del overlay */}
       <div className="relative z-20 px-6 py-10 md:px-10 text-white">
         <h1 className="text-4xl font-extrabold tracking-tight">MercadIAshop</h1>
-        <p className="mt-2 text-lg">Tecnología de vanguardia a tu alcance.</p>
+        <p className="mt-2 text-lg">Compra en el futuro, compra hoy.</p>
       </div>
     </section>
   );
