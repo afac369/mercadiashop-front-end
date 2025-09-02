@@ -54,7 +54,7 @@ export default function LayoutPro({ children }: Props) {
               <nav className="hidden md:flex items-center gap-6 text-sm">
                 <a href="/#productos">Productos</a>
                 <a href="/#categorias">Categorías</a>
-                <a href="/#contacto">Contacto</a>
+                <a href="/contacto">Contacto</a>
               </nav>
               <div className="flex items-center gap-2">
                 <ThemeToggle />
@@ -82,10 +82,13 @@ export default function LayoutPro({ children }: Props) {
               <div className="font-semibold">Ayuda</div>
               <ul className="mt-2 space-y-1">
                 <li>
-                  <a href="#contacto">Soporte</a>
+                  <a href="/soporte">Soporte</a>
                 </li>
                 <li>
-                  <a href="#">Políticas</a>
+                  <a href="/politicas">Políticas</a>
+                </li>
+                <li>
+                  <a href="/contacto">Contacto</a>
                 </li>
               </ul>
             </div>
