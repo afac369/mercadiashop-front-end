@@ -1,17 +1,14 @@
+
+
+
 import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { createOrder } from "../../lib/orders";
 import { formatCLP } from "../../utils/currency";
 
 export default function CheckoutPage() {
-  const { items, totalPrice, clear } = useCart();
+  const { items, totalPrice } = useCart();
   const [email, setEmail] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const sessionId = useMemo(() => {
-    if (typeof window === "undefined") return undefined;
-    return window.localStorage.getItem("sid") || undefined;
-  }, []);
 
   useEffect(() => {
     // intenta precargar email si lo guardaste antes
@@ -22,39 +19,6 @@ export default function CheckoutPage() {
       }
     } catch {}
   }, []);
-
-  async function handleConfirmar() {
-    try {
-      setLoading(true);
-      if (items.length === 0) throw new Error("Tu carrito está vacío.");
-
-      const payload = {
-        email: email || undefined,
-        session_id: sessionId,
-        currency: "CLP",
-        items: items.map((i) => ({ product_id: i.id, quantity: i.qty })),
-      };
-
-      const r = await createOrder(payload);
-
-      // Persistencia ligera para la página de éxito (no altera UI)
-      try {
-        if (typeof window !== "undefined") {
-          window.sessionStorage.setItem("last_order_total_cents", String(r.total_cents));
-          if (email) window.localStorage.setItem("email_hint", email);
-        }
-      } catch {}
-
-      // Limpia carrito y redirige a página de éxito con el order_id
-      clear();
-      window.location.href = `/checkout/success?order_id=${encodeURIComponent(r.order_id)}`;
-    } catch (e: any) {
-      alert(e?.message || "Error al crear la orden");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <>
       <Head>
@@ -105,11 +69,10 @@ export default function CheckoutPage() {
         <div className="flex gap-2">
           <a href="/" className="btn-ghost">Seguir comprando</a>
           <button
-            onClick={handleConfirmar}
-            disabled={loading || items.length === 0}
-            className="btn-primary disabled:opacity-50"
+            onClick={() => window.location.href = "/checkout/payment"}
+            className="btn-primary"
           >
-            {loading ? "Procesando…" : "Confirmar pedido"}
+            {"Ir a pagar"}
           </button>
         </div>
       </main>
