@@ -25,6 +25,8 @@ export default function PaymentPage() {
     } catch {}
   }, []);
 
+  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+
   async function handlePayment() {
     try {
       setLoading(true);
@@ -93,21 +95,84 @@ export default function PaymentPage() {
         <section className="rounded-2xl border border-black/10 p-4 mb-6">
           <h2 className="font-medium mb-3">Métodos de pago</h2>
           <div className="flex flex-col gap-4">
-            {/* Placeholder for payment methods */}
             <div className="flex items-center">
-              <input type="radio" name="paymentMethod" id="creditCard" className="mr-2" defaultChecked />
+              <input
+                type="radio"
+                name="paymentMethod"
+                id="creditCard"
+                className="mr-2"
+                checked={paymentMethod === "creditCard"}
+                onChange={() => setPaymentMethod("creditCard")}
+              />
               <label htmlFor="creditCard">Tarjeta de crédito</label>
             </div>
             <div className="flex items-center">
-              <input type="radio" name="paymentMethod" id="paypal" className="mr-2" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                id="paypal"
+                className="mr-2"
+                checked={paymentMethod === "paypal"}
+                onChange={() => setPaymentMethod("paypal")}
+              />
               <label htmlFor="paypal">PayPal</label>
             </div>
             <div className="flex items-center">
-              <input type="radio" name="paymentMethod" id="bankTransfer" className="mr-2" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                id="bankTransfer"
+                className="mr-2"
+                checked={paymentMethod === "bankTransfer"}
+                onChange={() => setPaymentMethod("bankTransfer")}
+              />
               <label htmlFor="bankTransfer">Transferencia bancaria</label>
             </div>
           </div>
         </section>
+
+        {paymentMethod === "creditCard" && (
+          <section className="rounded-2xl border border-black/10 p-4 mb-6">
+            <h2 className="font-medium mb-3">Datos de la tarjeta</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label className="block text-sm mb-1">Número de la tarjeta</label>
+                <input type="text" placeholder="**** **** **** ****" className="w-full rounded-xl border px-3 py-2" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm mb-1">Fecha de expiración</label>
+                  <input type="text" placeholder="MM/YY" className="w-full rounded-xl border px-3 py-2" />
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">CVC</label>
+                  <input type="text" placeholder="***" className="w-full rounded-xl border px-3 py-2" />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {paymentMethod === "paypal" && (
+          <section className="rounded-2xl border border-black/10 p-4 mb-6 text-center">
+            <h2 className="font-medium mb-3">Pagar con PayPal</h2>
+            <p className="text-sm opacity-70 mb-4">Serás redirigido a PayPal para completar tu pago.</p>
+            <button className="btn-primary bg-[#0070BA] hover:bg-[#005ea6]">Ir a PayPal</button>
+          </section>
+        )}
+
+        {paymentMethod === "bankTransfer" && (
+          <section className="rounded-2xl border border-black/10 p-4 mb-6">
+            <h2 className="font-medium mb-3">Datos para la transferencia</h2>
+            <div className="text-sm space-y-2">
+              <p><span className="font-semibold">Banco:</span> Banco Ficticio</p>
+              <p><span className="font-semibold">Número de cuenta:</span> 123-456-7890</p>
+              <p><span className="font-semibold">RUT:</span> 98.765.432-1</p>
+              <p><span className="font-semibold">Asunto:</span> Pedido #{Math.floor(Math.random() * 10000)}</p>
+              <p className="mt-2 opacity-70">Por favor, incluye el número de pedido en el asunto de la transferencia.</p>
+            </div>
+          </section>
+        )}
 
         <div className="flex gap-2">
           <button onClick={() => router.back()} className="btn-ghost">Volver</button>
