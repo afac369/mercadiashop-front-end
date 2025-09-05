@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "¿Qué hago si mi producto llega dañado?",
-    answer: "Lamentamos mucho si esto ocurre. Por favor, contáctanos de inmediato a través de nuestro correo <a href='mailto:mercadia.web@gmail.com' class='text-emerald-500'>mercadia.web@gmail.com</a> con fotos del producto dañado y tu número de orden. Nos encargaremos de solucionarlo lo antes posible."
+    answer: "Lamentamos mucho si esto ocurre. Por favor, contáctanos de inmediato a través de nuestro correo <a href='mailto:contacto.mercadiashop@gmail.com' class='text-emerald-500'>contacto.mercadiashop@gmail.com</a> con fotos del producto dañado y tu número de orden. Nos encargaremos de solucionarlo lo antes posible."
   },
   {
     question: "¿Puedo cancelar mi pedido?",
