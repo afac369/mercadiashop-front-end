@@ -117,17 +117,6 @@ export default function PaymentPage() {
               />
               <label htmlFor="paypal">PayPal</label>
             </div>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="bankTransfer"
-                className="mr-2"
-                checked={paymentMethod === "bankTransfer"}
-                onChange={() => setPaymentMethod("bankTransfer")}
-              />
-              <label htmlFor="bankTransfer">Transferencia bancaria</label>
-            </div>
           </div>
         </section>
 
@@ -158,19 +147,6 @@ export default function PaymentPage() {
             <h2 className="font-medium mb-3">Pagar con PayPal</h2>
             <p className="text-sm opacity-70 mb-4">Serás redirigido a PayPal para completar tu pago.</p>
             <button className="btn-primary bg-[#0070BA] hover:bg-[#005ea6]">Ir a PayPal</button>
-          </section>
-        )}
-
-        {paymentMethod === "bankTransfer" && (
-          <section className="rounded-2xl border border-black/10 p-4 mb-6">
-            <h2 className="font-medium mb-3">Datos para la transferencia</h2>
-            <div className="text-sm space-y-2">
-              <p><span className="font-semibold">Banco:</span> Banco Ficticio</p>
-              <p><span className="font-semibold">Número de cuenta:</span> 123-456-7890</p>
-              <p><span className="font-semibold">RUT:</span> 98.765.432-1</p>
-              <p><span className="font-semibold">Asunto:</span> Pedido #{Math.floor(Math.random() * 10000)}</p>
-              <p className="mt-2 opacity-70">Por favor, incluye el número de pedido en el asunto de la transferencia.</p>
-            </div>
           </section>
         )}
 
